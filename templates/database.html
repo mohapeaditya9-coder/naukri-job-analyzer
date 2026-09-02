@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block title %}Database Management | Naukri IT Analyzer{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1 small">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Database Management</li>
+                </ol>
+            </nav>
+            <h3 class="fw-bold mb-0">SQLite Database Records ({{ jobs|length }})</h3>
+            <p class="text-muted small mb-0">Direct CRUD administration for stored IT job vacancies, raw listings, and indexes.</p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-primary-naukri btn-sm" data-bs-toggle="modal" data-bs-target="#addJobModal">
+                <i class="fa-solid fa-plus"></i> Add New Job Record
+            </button>
+            <button class="btn btn-secondary-naukri btn-sm" onclick="window.location.reload()">
+                <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+            <button class="btn btn-outline-danger btn-sm" onclick="clearAllJobs()">
+                <i class="fa-solid fa-trash-can"></i> Clear All Data
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick Stats Bar -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card card-naukri p-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted small">Total Records</div>
+                    <div class="fs-4 fw-bold text-primary">{{ stats.total_jobs }}</div>
+                </div>
+                <div class="kpi-icon-wrap kpi-blue mb-0" style="width: 40px; height: 40px; font-size: 1.1rem;">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-naukri p-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted small">Unique Companies</div>
+                    <div class="fs-4 fw-bold text-dark">{{ stats.total_companies }}</div>
+                </div>
+                <div class="kpi-icon-wrap kpi-sky mb-0" style="width: 40px; height: 40px; font-size: 1.1rem;">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-naukri p-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted small">Unique Locations</div>
+                    <div class="fs-4 fw-bold text-success">{{ stats.total_locations }}</div>
+                </div>
+                <div class="kpi-icon-wrap kpi-green mb-0" style="width: 40px; height: 40px; font-size: 1.1rem;">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instant Search & Table Card -->
+    <div class="card card-naukri shadow-sm">
+        <div class="card-header-naukri">
+            <div class="input-group input-group-sm" style="max-width: 350px;">
+                <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                <input type="text" class="form-control" id="clientTableSearch" placeholder="Type to filter records instantly...">
+            </div>
+            <div class="small text-muted">
+                Last modified: <strong>{{ stats.last_updated }}</strong>
+            </div>
+        </div>
+
+        {% if jobs %}
+        <div class="table-responsive" style="max-height: 650px; overflow-y: auto;">
+            <table class="table-naukri" id="databaseTable">
+                <thead style="position: sticky; top: 0; z-index: 10;">
+                    <tr>
+                        <th style="width: 5%;">ID</th>
+                        <th style="width: 25%;">Job Title & Company</th>
+                        <th style="width: 15%;">Location & Mode</th>
+                        <th style="width: 14%;">Salary (LPA)</th>
+                        <th style="width: 12%;">Experience</th>
+                        <th style="width: 15%;">Skills</th>
+                        <th style="width: 14%; text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr class="filterable-row" id="job-row-{{ job.id }}">
+                        <td class="text-muted fw-bold">#{{ job.id }}</td>
+                        <td>
+                            <div class="fw-bold text-primary">{{ job.job_title }}</div>
+                            <div class="small text-secondary">{{ job.company }}</div>
+                        </td>
+                        <td>
+                            <div class="small fw-semibold">{{ job.location }}</div>
+                            <span class="badge bg-light text-dark border small" style="font-size: 0.7rem;">{{ job.job_type }}</span>
+                        </td>
+                        <td>
+                            <div class="small fw-bold text-success">{{ job.salary }}</div>
+                            {% if job.avg_salary > 0 %}
+                            <div class="text-muted" style="font-size: 0.7rem;">(Avg: ₹{{ job.avg_salary }} LPA)</div>
+                            {% endif %}
+                        </td>
+                        <td class="small">{{ job.experience }}</td>
+                        <td>
+                            <div class="text-truncate small text-muted" style="max-width: 200px;" title="{{ job.skills }}">
+                                {{ job.skills }}
+                            </div>
+                        </td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-sm btn-outline-primary py-0 px-2 me-1" onclick="openEditJobModal({{ job.id }})" title="Edit Job Record">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteJob({{ job.id }}, '{{ job.job_title|replace('\'', '\\\'') }}')" title="Delete Record">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center p-5">
+            <h5 class="fw-bold">Database is Empty</h5>
+            <p class="text-muted small mb-3">No job listings found in the SQLite database.</p>
+            <button class="btn btn-primary-naukri btn-sm" id="seedSampleBtn">
+                <i class="fa-solid fa-database"></i> Seed Realistic Sample Dataset
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ==========================================================================
+     Add Job Modal
+     ========================================================================== -->
+<div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content card-naukri border-0 shadow-lg">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title fw-bold" id="addJobModalLabel">
+                    <i class="fa-solid fa-plus-circle text-primary me-2"></i>Add New Job Record
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addJobForm">
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Job Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="job_title" required placeholder="e.g. Lead Full Stack Engineer">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Company Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="company" required placeholder="e.g. Google India">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Location</label>
+                            <input type="text" class="form-control" name="location" value="Bengaluru" placeholder="e.g. Bengaluru">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Work Mode</label>
+                            <select class="form-select" name="job_type">
+                                <option value="On-site">On-site</option>
+                                <option value="Hybrid" selected>Hybrid</option>
+                                <option value="Remote">Remote</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Salary Range (e.g. "15-25 Lacs PA")</label>
+                            <input type="text" class="form-control" name="salary" placeholder="e.g. 18-32 Lacs PA">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Experience (e.g. "3-6 Yrs")</label>
+                            <input type="text" class="form-control" name="experience" placeholder="e.g. 3-6 Yrs">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold">Skills (Comma-separated)</label>
+                            <input type="text" class="form-control" name="skills" placeholder="e.g. Python, Django, AWS, Docker, PostgreSQL">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Posted Date</label>
+                            <input type="text" class="form-control" name="posted_date" value="Today">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Job Apply Link</label>
+                            <input type="url" class="form-control" name="job_link" value="https://www.naukri.com">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top">
+                    <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary-naukri btn-sm">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Record
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================================================
+     Edit Job Modal
+     ========================================================================== -->
+<div class="modal fade" id="editJobModal" tabindex="-1" aria-labelledby="editJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content card-naukri border-0 shadow-lg">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title fw-bold" id="editJobModalLabel">
+                    <i class="fa-solid fa-pen-to-square text-primary me-2"></i>Edit Job Record
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editJobForm">
+                <input type="hidden" id="editJobId" name="id">
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Job Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="editJobTitle" name="job_title" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Company Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="editCompany" name="company" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Location</label>
+                            <input type="text" class="form-control" id="editLocation" name="location">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Work Mode</label>
+                            <select class="form-select" id="editJobType" name="job_type">
+                                <option value="On-site">On-site</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Remote">Remote</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Salary Range</label>
+                            <input type="text" class="form-control" id="editSalary" name="salary">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Experience</label>
+                            <input type="text" class="form-control" id="editExperience" name="experience">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold">Skills</label>
+                            <input type="text" class="form-control" id="editSkills" name="skills">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Posted Date</label>
+                            <input type="text" class="form-control" id="editPostedDate" name="posted_date">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Job Apply Link</label>
+                            <input type="url" class="form-control" id="editJobLink" name="job_link">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top">
+                    <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary-naukri btn-sm">
+                        <i class="fa-solid fa-check"></i> Update Record
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/datatable.js') }}"></script>
+<script src="{{ url_for('static', filename='js/scraper_ui.js') }}"></script>
+{% endblock %}

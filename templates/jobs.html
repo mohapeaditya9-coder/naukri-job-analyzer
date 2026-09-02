@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block title %}IT Job Listings Directory | Naukri IT Analyzer{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header & Action Bar -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1 small">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Job Listings</li>
+                </ol>
+            </nav>
+            <h3 class="fw-bold mb-0">IT Job Vacancies & Listings</h3>
+            <p class="text-muted small mb-0">Showing <strong>{{ total_jobs }}</strong> active job opportunities indexed from Naukri.com.</p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{{ url_for('export_csv', **filters) }}" class="btn btn-secondary-naukri btn-sm">
+                <i class="fa-solid fa-file-csv text-primary"></i> Export CSV
+            </a>
+            <a href="{{ url_for('export_excel') }}" class="btn btn-secondary-naukri btn-sm">
+                <i class="fa-solid fa-file-excel text-success"></i> Export Excel
+            </a>
+            <button onclick="window.print()" class="btn btn-secondary-naukri btn-sm">
+                <i class="fa-solid fa-print text-secondary"></i> Print / PDF
+            </button>
+            <a href="{{ url_for('search_page') }}" class="btn btn-primary-naukri btn-sm">
+                <i class="fa-solid fa-plus"></i> Scrape More
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter Bar Card -->
+    <div class="card card-naukri p-3 mb-4 shadow-sm">
+        <form method="GET" action="{{ url_for('jobs_page') }}" id="jobsFilterForm">
+            <div class="row g-2 align-items-center">
+                <!-- Search Input -->
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                        <input type="text" class="form-control" name="search" placeholder="Search title, company, skills..." value="{{ filters.search }}">
+                    </div>
+                </div>
+
+                <!-- Location Filter -->
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" name="location">
+                        <option value="">All Locations</option>
+                        {% for loc in locations %}
+                        <option value="{{ loc }}" {% if filters.location == loc %}selected{% endif %}>{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Work Mode Filter -->
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" name="job_type">
+                        <option value="">All Work Modes</option>
+                        <option value="On-site" {% if filters.job_type == 'On-site' %}selected{% endif %}>On-site</option>
+                        <option value="Hybrid" {% if filters.job_type == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+                        <option value="Remote" {% if filters.job_type == 'Remote' %}selected{% endif %}>Remote / WFH</option>
+                    </select>
+                </div>
+
+                <!-- Salary Min -->
+                <div class="col-md-2">
+                    <input type="number" step="0.5" class="form-control form-control-sm" name="min_salary" placeholder="Min Salary (LPA)" value="{{ filters.min_salary }}">
+                </div>
+
+                <!-- Sort By -->
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" name="sort_by">
+                        <option value="id" {% if filters.sort_by == 'id' %}selected{% endif %}>Sort by: Latest</option>
+                        <option value="avg_salary" {% if filters.sort_by == 'avg_salary' %}selected{% endif %}>Sort by: Salary (High to Low)</option>
+                        <option value="min_exp" {% if filters.sort_by == 'min_exp' %}selected{% endif %}>Sort by: Experience</option>
+                        <option value="company" {% if filters.sort_by == 'company' %}selected{% endif %}>Sort by: Company</option>
+                    </select>
+                </div>
+
+                <!-- Submit / Reset -->
+                <div class="col-md-1 d-flex gap-1">
+                    <button type="submit" class="btn btn-primary-naukri btn-sm w-100 justify-content-center" title="Apply Filters">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                    <a href="{{ url_for('jobs_page') }}" class="btn btn-secondary-naukri btn-sm" title="Reset Filters">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Jobs Table Card -->
+    <div class="card card-naukri shadow-sm mb-4">
+        {% if jobs %}
+        <div class="table-responsive">
+            <table class="table-naukri">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Job Title & Company</th>
+                        <th style="width: 14%;">Location & Mode</th>
+                        <th style="width: 14%;">Salary (LPA)</th>
+                        <th style="width: 12%;">Experience</th>
+                        <th style="width: 23%;">Key Skills</th>
+                        <th style="width: 12%; text-align: right;">Posted & Apply</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <!-- Job Title & Company -->
+                        <td>
+                            <div class="fw-bold text-primary mb-1">{{ job.job_title }}</div>
+                            <div class="text-secondary small d-flex align-items-center gap-1">
+                                <i class="fa-solid fa-building text-muted"></i> {{ job.company }}
+                            </div>
+                        </td>
+
+                        <!-- Location & Mode -->
+                        <td>
+                            <div class="small fw-semibold"><i class="fa-solid fa-location-dot text-danger me-1"></i>{{ job.location }}</div>
+                            <div class="mt-1">
+                                {% if job.job_type == 'Remote' %}
+                                    <span class="badge-mode-remote"><i class="fa-solid fa-wifi me-1"></i>Remote</span>
+                                {% elif job.job_type == 'Hybrid' %}
+                                    <span class="badge-mode-hybrid"><i class="fa-solid fa-laptop-house me-1"></i>Hybrid</span>
+                                {% else %}
+                                    <span class="badge-mode-onsite"><i class="fa-solid fa-building-user me-1"></i>On-site</span>
+                                {% endif %}
+                            </div>
+                        </td>
+
+                        <!-- Salary -->
+                        <td>
+                            <div class="fw-bold text-success">{{ job.salary }}</div>
+                            {% if job.avg_salary > 0 %}
+                            <div class="text-muted" style="font-size: 0.75rem;">Avg: ₹{{ job.avg_salary }} LPA</div>
+                            {% endif %}
+                        </td>
+
+                        <!-- Experience -->
+                        <td>
+                            <div class="small fw-semibold text-secondary">
+                                <i class="fa-solid fa-user-clock text-warning me-1"></i>{{ job.experience }}
+                            </div>
+                        </td>
+
+                        <!-- Skills -->
+                        <td>
+                            <div class="d-flex flex-wrap gap-1">
+                                {% if job.skills %}
+                                    {% for skill in job.skills.split(',')[:5] %}
+                                        <span class="skill-tag">{{ skill.strip() }}</span>
+                                    {% endfor %}
+                                    {% if job.skills.split(',')|length > 5 %}
+                                        <span class="skill-tag text-muted">+{{ job.skills.split(',')|length - 5 }} more</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted small">Not specified</span>
+                                {% endif %}
+                            </div>
+                        </td>
+
+                        <!-- Posted Date & Apply Link -->
+                        <td style="text-align: right;">
+                            <div class="text-muted small mb-2"><i class="fa-regular fa-clock me-1"></i>{{ job.posted_date }}</div>
+                            <a href="{{ job.job_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm px-3 rounded-pill">
+                                Apply <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size: 0.75rem;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        {% if total_pages > 1 %}
+        <div class="card-footer bg-transparent border-top p-3 d-flex flex-wrap justify-content-between align-items-center">
+            <div class="small text-muted mb-2 mb-md-0">
+                Showing page <strong>{{ page }}</strong> of <strong>{{ total_pages }}</strong> ({{ total_jobs }} total listings)
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('jobs_page', page=page-1, **filters) }}">Previous</a>
+                    </li>
+                    
+                    {% for p in range(1, total_pages + 1) %}
+                        {% if p == page or (p >= page - 2 and p <= page + 2) %}
+                        <li class="page-item {% if p == page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('jobs_page', page=p, **filters) }}">{{ p }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('jobs_page', page=page+1, **filters) }}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center p-5">
+            <div class="kpi-icon-wrap kpi-sky mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.6rem;">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <h5 class="fw-bold">No Matching IT Jobs Found</h5>
+            <p class="text-muted small mb-3">Try adjusting your search criteria or trigger a new scraping session for current listings.</p>
+            <div class="d-flex justify-content-center gap-2">
+                <a href="{{ url_for('jobs_page') }}" class="btn btn-secondary-naukri btn-sm">Clear Filters</a>
+                <a href="{{ url_for('search_page') }}" class="btn btn-primary-naukri btn-sm">Scrape Jobs Now</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

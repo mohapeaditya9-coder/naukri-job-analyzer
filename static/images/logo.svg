@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <defs>
+    <linearGradient id="naukriGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a66c2"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#naukriGrad)"/>
+  <path d="M12 28V12h3.5l7 10V12h3.5v16h-3.5l-7-10v10H12z" fill="#ffffff" font-weight="bold"/>
+  <circle cx="28" cy="12" r="3" fill="#38bdf8"/>
+</svg>

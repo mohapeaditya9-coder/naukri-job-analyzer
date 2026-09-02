@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% block title %}IT Market Analytics Dashboard | Naukri IT Analyzer{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Dashboard Top Bar -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1 small">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Analytics Dashboard</li>
+                </ol>
+            </nav>
+            <h3 class="fw-bold mb-0">IT Vacancy & Salary Intelligence Dashboard</h3>
+            <p class="text-muted small mb-0">Real-time market analytics, compensation curves, and skill demand distributions.</p>
+        </div>
+        
+        <div class="d-flex flex-wrap align-items-center gap-2">
+            <div class="form-check form-switch me-2" title="Auto-refresh metrics every 30s">
+                <input class="form-check-input" type="checkbox" role="switch" id="autoRefreshToggle">
+                <label class="form-check-label small text-muted" for="autoRefreshToggle">Auto-Refresh</label>
+            </div>
+            
+            <a href="{{ url_for('export_csv') }}" class="btn btn-secondary-naukri btn-sm" title="Export Dataset to CSV">
+                <i class="fa-solid fa-file-csv text-primary"></i> Export CSV
+            </a>
+            <a href="{{ url_for('export_excel') }}" class="btn btn-secondary-naukri btn-sm" title="Export Spreadsheet to Excel">
+                <i class="fa-solid fa-file-excel text-success"></i> Export Excel
+            </a>
+            <a href="{{ url_for('search_page') }}" class="btn btn-primary-naukri btn-sm">
+                <i class="fa-solid fa-plus"></i> Scrape More Jobs
+            </a>
+        </div>
+    </div>
+
+    <!-- KPI Metric Cards Grid -->
+    <div class="row g-3 mb-4">
+        <!-- Total Jobs -->
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-blue">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <div class="kpi-label">Total Jobs</div>
+                <div class="kpi-value counter-anim" data-target="{{ kpis.total_jobs }}">{{ kpis.total_jobs }}</div>
+                <div class="kpi-subtext">
+                    <i class="fa-solid fa-layer-group text-primary"></i> Active Listings
+                </div>
+            </div>
+        </div>
+
+        <!-- Companies -->
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-sky">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+                <div class="kpi-label">Companies</div>
+                <div class="kpi-value counter-anim" data-target="{{ kpis.unique_companies }}">{{ kpis.unique_companies }}</div>
+                <div class="kpi-subtext text-truncate" title="Top: {{ kpis.top_company }}">
+                    <i class="fa-solid fa-award text-accent"></i> Top: {{ kpis.top_company }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Cities -->
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-purple">
+                    <i class="fa-solid fa-city"></i>
+                </div>
+                <div class="kpi-label">Cities / Hubs</div>
+                <div class="kpi-value counter-anim" data-target="{{ kpis.unique_cities }}">{{ kpis.unique_cities }}</div>
+                <div class="kpi-subtext text-truncate" title="Top: {{ kpis.top_city }}">
+                    <i class="fa-solid fa-location-dot text-purple"></i> Top: {{ kpis.top_city }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Salary -->
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-green">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+                <div class="kpi-label">Avg Salary</div>
+                <div class="kpi-value counter-anim" data-target="{{ kpis.avg_salary }}" data-prefix="₹" data-suffix=" LPA">₹{{ kpis.avg_salary }} LPA</div>
+                <div class="kpi-subtext">
+                    <i class="fa-solid fa-arrow-trend-up text-success"></i> Max: ₹{{ kpis.max_salary }} LPA
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Experience -->
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-amber">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <div class="kpi-label">Avg Experience</div>
+                <div class="kpi-value counter-anim" data-target="{{ kpis.avg_exp }}" data-suffix=" Yrs">{{ kpis.avg_exp }} Yrs</div>
+                <div class="kpi-subtext">
+                    <i class="fa-solid fa-users text-warning"></i> Mid-Senior Dominant
+                </div>
+            </div>
+        </div>
+
+        <!-- Remote Ratio -->
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-sky">
+                    <i class="fa-solid fa-house-laptop"></i>
+                </div>
+                <div class="kpi-label">Remote Share</div>
+                <div class="kpi-value counter-anim" data-target="{{ kpis.remote_percentage }}" data-suffix="%">{{ kpis.remote_percentage }}%</div>
+                <div class="kpi-subtext">
+                    <i class="fa-solid fa-wifi text-info"></i> WFH / Remote
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1: City Distribution & Top Companies -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-location-dot text-primary"></i> Jobs by Top Tech Hubs
+                    </h6>
+                    <span class="badge bg-light text-dark border small">City Volume</span>
+                </div>
+                <div id="chart_jobs_by_city" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-building text-primary"></i> Top Hiring Companies
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Volume & Compensation</span>
+                </div>
+                <div id="chart_top_companies" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2: Salary Distribution & Experience Split -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-chart-column text-success"></i> Salary Distribution (in LPA)
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Compensation Bins</span>
+                </div>
+                <div id="chart_salary_distribution" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-chart-pie text-warning"></i> Experience Requirement Split
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Career Tiers</span>
+                </div>
+                <div id="chart_experience_distribution" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 3: Top Skills & Work Mode -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-7">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-microchip text-primary"></i> Top Demanded Skills & Tech Stacks
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Keyword Frequency</span>
+                </div>
+                <div id="chart_top_skills" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-laptop-house text-info"></i> Work Mode Distribution
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Remote vs Hybrid vs On-site</span>
+                </div>
+                <div id="chart_work_mode" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 4: Salary vs Experience & Role Benchmarks -->
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-arrow-trend-up text-primary"></i> Salary Progression by Experience
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Mean & Median Trends</span>
+                </div>
+                <div id="chart_salary_vs_exp" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-layer-group text-purple"></i> Role-wise Salary Benchmarks
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Domain Categories</span>
+                </div>
+                <div id="chart_role_benchmarks" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Render Plotly charts from server JSON
+document.addEventListener('DOMContentLoaded', () => {
+    const config = { responsive: true, displayModeBar: false };
+    const theme = localStorage.getItem('naukri_theme') || 'light';
+
+    const chartsData = {
+        'chart_jobs_by_city': {{ charts.jobs_by_city | tojson }},
+        'chart_top_companies': {{ charts.top_companies | tojson }},
+        'chart_salary_distribution': {{ charts.salary_distribution | tojson }},
+        'chart_experience_distribution': {{ charts.experience_distribution | tojson }},
+        'chart_top_skills': {{ charts.top_skills | tojson }},
+        'chart_work_mode': {{ charts.work_mode | tojson }},
+        'chart_salary_vs_exp': {{ charts.salary_vs_exp | tojson }},
+        'chart_role_benchmarks': {{ charts.role_benchmarks | tojson }}
+    };
+
+    for (const [id, figure] of Object.entries(chartsData)) {
+        const elem = document.getElementById(id);
+        if (elem && figure && figure.data) {
+            Plotly.newPlot(id, figure.data, figure.layout, config).then(() => {
+                rethemePlotlyCharts(theme);
+            });
+        }
+    }
+
+    // Auto-refresh logic
+    const autoRefreshToggle = document.getElementById('autoRefreshToggle');
+    let refreshInterval = null;
+
+    if (autoRefreshToggle) {
+        autoRefreshToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                refreshInterval = setInterval(() => {
+                    window.location.reload();
+                }, 30000);
+            } else {
+                if (refreshInterval) clearInterval(refreshInterval);
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

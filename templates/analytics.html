@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}IT Market Intelligence & Analytics | Naukri IT Analyzer{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1 small">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Analytics & Insights</li>
+                </ol>
+            </nav>
+            <h3 class="fw-bold mb-0">IT Talent & Compensation Analytics</h3>
+            <p class="text-muted small mb-0">Deep statistical exploration of technical skills, location premiums, and compensation trends.</p>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button onclick="window.print()" class="btn btn-secondary-naukri btn-sm">
+                <i class="fa-solid fa-file-pdf text-danger"></i> Export Executive Report
+            </button>
+            <a href="{{ url_for('export_excel') }}" class="btn btn-primary-naukri btn-sm">
+                <i class="fa-solid fa-download"></i> Download Full Analytics Dataset
+            </a>
+        </div>
+    </div>
+
+    <!-- Executive Insights Highlight Box -->
+    <div class="card card-naukri p-4 mb-4 border-primary shadow-sm" style="border-left: 5px solid var(--primary) !important;">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-brain text-primary fs-5"></i>
+                <h5 class="fw-bold mb-0">Executive Market Observations</h5>
+            </div>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                Pandas & NumPy Automated Insights
+            </span>
+        </div>
+        <div class="row gy-2">
+            {% for insight in insights %}
+            <div class="col-md-6">
+                <div class="d-flex align-items-start gap-2 small">
+                    <i class="fa-solid fa-chevron-right text-primary mt-1" style="font-size: 0.75rem;"></i>
+                    <div>{{ insight | safe }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Key Insights Stat Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="kpi-card h-100">
+                <div class="kpi-icon-wrap kpi-blue">
+                    <i class="fa-solid fa-map-pin"></i>
+                </div>
+                <div class="kpi-label">Highest Hiring City</div>
+                <div class="fs-4 fw-bold text-primary">{{ kpis.top_city }}</div>
+                <div class="kpi-subtext">Leading volume of tech listings</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="kpi-card h-100">
+                <div class="kpi-icon-wrap kpi-sky">
+                    <i class="fa-solid fa-building-circle-check"></i>
+                </div>
+                <div class="kpi-label">Top Hiring Company</div>
+                <div class="fs-4 fw-bold text-dark text-truncate">{{ kpis.top_company }}</div>
+                <div class="kpi-subtext">Aggressive talent acquisition</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="kpi-card h-100">
+                <div class="kpi-icon-wrap kpi-green">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="kpi-label">Most Demanded Skill</div>
+                <div class="fs-4 fw-bold text-success">{{ kpis.top_skill }}</div>
+                <div class="kpi-subtext">Highest keyword frequency</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="kpi-card h-100">
+                <div class="kpi-icon-wrap kpi-amber">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+                <div class="kpi-label">Market Avg Salary</div>
+                <div class="fs-4 fw-bold text-warning">₹{{ kpis.avg_salary }} LPA</div>
+                <div class="kpi-subtext">Peak recorded: ₹{{ kpis.max_salary }} LPA</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-arrow-trend-up text-primary"></i> Salary Progression by Experience
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Trend Curve</span>
+                </div>
+                <div id="chart_salary_vs_exp" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-layer-group text-purple"></i> Role-wise Salary Benchmarks
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Domain Breakdown</span>
+                </div>
+                <div id="chart_role_benchmarks" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Analytics Tables Row -->
+    <div class="row g-4">
+        <!-- Top Cities Table -->
+        <div class="col-lg-4">
+            <div class="card card-naukri h-100 shadow-sm">
+                <div class="card-header-naukri">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-city text-primary"></i> Top 10 Tech Hubs
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Share %</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>City</th>
+                                <th class="text-center">Vacancies</th>
+                                <th class="text-end">Share</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in top_cities %}
+                            <tr>
+                                <td class="fw-semibold">{{ c.city }}</td>
+                                <td class="text-center">{{ c.count }}</td>
+                                <td class="text-end">
+                                    <span class="badge bg-primary-subtle text-primary">{{ c.percentage }}%</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Companies Table -->
+        <div class="col-lg-4">
+            <div class="card card-naukri h-100 shadow-sm">
+                <div class="card-header-naukri">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-building text-success"></i> Top Hiring Enterprises
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Avg LPA</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Company</th>
+                                <th class="text-center">Jobs</th>
+                                <th class="text-end">Avg Offer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for comp in top_companies %}
+                            <tr>
+                                <td class="fw-semibold text-truncate" style="max-width: 130px;">{{ comp.company }}</td>
+                                <td class="text-center">{{ comp.count }}</td>
+                                <td class="text-end text-success fw-bold">
+                                    {% if comp.avg_sal > 0 %}₹{{ comp.avg_sal }} LPA{% else %}N/A{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Skills Table -->
+        <div class="col-lg-4">
+            <div class="card card-naukri h-100 shadow-sm">
+                <div class="card-header-naukri">
+                    <h6 class="card-title-naukri">
+                        <i class="fa-solid fa-microchip text-warning"></i> In-Demand Skills Ranking
+                    </h6>
+                    <span class="badge bg-light text-dark border small">Mentions</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Skill</th>
+                                <th class="text-center">Count</th>
+                                <th class="text-end">Demand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in top_skills[:10] %}
+                            <tr>
+                                <td class="fw-semibold">{{ s.skill }}</td>
+                                <td class="text-center">{{ s.count }}</td>
+                                <td class="text-end">
+                                    <span class="badge bg-info-subtle text-info">{{ s.percentage }}%</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const config = { responsive: true, displayModeBar: false };
+    const theme = localStorage.getItem('naukri_theme') || 'light';
+
+    const chartsData = {
+        'chart_salary_vs_exp': {{ charts.salary_vs_exp | tojson }},
+        'chart_role_benchmarks': {{ charts.role_benchmarks | tojson }}
+    };
+
+    for (const [id, figure] of Object.entries(chartsData)) {
+        const elem = document.getElementById(id);
+        if (elem && figure && figure.data) {
+            Plotly.newPlot(id, figure.data, figure.layout, config).then(() => {
+                rethemePlotlyCharts(theme);
+            });
+        }
+    }
+});
+</script>
+{% endblock %}
