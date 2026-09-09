@@ -581,15 +581,15 @@
       
       <!-- Left: Mobile Hamburger Button + Brand Logo Section -->
       <div class="flex items-center space-x-2 sm:space-x-3.5 flex-shrink-0">
-        <!-- Mobile 3-Lines Hamburger Menu Button (Positioned on Left before Logo) -->
-        <button id="mobileMenuBtn" aria-label="Open mobile navigation menu" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center border border-slate-300/60 dark:border-slate-700 bg-white/20 dark:bg-slate-800/60 text-slate-800 dark:text-white hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer flex-shrink-0 shadow-sm" type="button">
-          <i class="fa-solid fa-bars text-base sm:text-lg text-sky-500 dark:text-sky-400"></i>
+        <!-- Mobile 3-Lines Hamburger Menu Button (Compact, smaller than logo) -->
+        <button id="mobileMenuBtn" aria-label="Open mobile navigation menu" class="lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center border border-slate-300/60 dark:border-slate-700 bg-white/20 dark:bg-slate-800/60 text-slate-800 dark:text-white hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer flex-shrink-0 shadow-sm" type="button">
+          <i class="fa-solid fa-bars text-xs sm:text-sm text-sky-500 dark:text-sky-400"></i>
         </button>
 
-        <!-- Brand Logo Section -->
+        <!-- Brand Logo Section (Prominent Logo Box) -->
         <a class="flex items-center space-x-2 sm:space-x-3 group focus:outline-none flex-shrink-0 text-decoration-none" href="{{ url_for('index') }}">
-          <div class="w-9 h-9 sm:w-10 sm:h-11 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-blue-800 p-0.5 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center flex-shrink-0">
-            <div class="w-full h-full bg-[#005ea6] rounded-[8px] sm:rounded-[10px] flex items-center justify-center">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-blue-800 p-0.5 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center flex-shrink-0">
+            <div class="w-full h-full bg-[#005ea6] rounded-[9px] sm:rounded-[10px] flex items-center justify-center">
               <!-- Analytic Growth Icon -->
               <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
                 <path d="M3 3v18h18"></path>
@@ -640,21 +640,21 @@
 
       <!-- Right Action Controls -->
       <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
-        <!-- Single Tap Theme Toggle Button -->
-        <button aria-label="Toggle light and dark theme" class="theme-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer flex-shrink-0" id="themeToggleBtn" title="Toggle Light / Dark mode" type="button">
+        <!-- Single Tap Theme Toggle Button (Compact) -->
+        <button aria-label="Toggle light and dark theme" class="theme-toggle-btn w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer flex-shrink-0" id="themeToggleBtn" title="Toggle Light / Dark mode" type="button">
           <!-- Moon icon for light mode (tap to switch to dark) -->
-          <svg class="w-4.5 h-4.5 sm:w-5 sm:h-5 text-slate-800 transition-transform duration-300" fill="none" id="moonIcon" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-slate-800 transition-transform duration-300" fill="none" id="moonIcon" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
           <!-- Sun icon for dark mode (tap to switch to light) -->
-          <svg class="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-300 transition-transform duration-300 hidden" fill="none" id="sunIcon" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-300 transition-transform duration-300 hidden" fill="none" id="sunIcon" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke-linecap="round"></path>
           </svg>
         </button>
 
         <!-- Energetic Scrape Now CTA Button -->
-        <a href="{{ url_for('search_page') }}" class="relative group overflow-hidden px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all flex items-center space-x-1.5 sm:space-x-2 text-decoration-none flex-shrink-0">
+        <a href="{{ url_for('search_page') }}" class="relative group overflow-hidden px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all flex items-center space-x-1.5 sm:space-x-2 text-decoration-none flex-shrink-0">
           <div class="absolute inset-0 shimmer-edge opacity-60"></div>
           <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 fill-amber-300 flex-shrink-0" viewBox="0 0 24 24">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
