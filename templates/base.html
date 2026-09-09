@@ -161,8 +161,37 @@
     </header>
     <!-- END: Desktop Navigation Bar -->
 
+    <!-- BEGIN: Mobile Bottom Floating Navigation Bar (Visible only on mobile screens < lg) -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 theme-navbar border-t border-slate-200/20 backdrop-blur-xl px-2 py-2 flex items-center justify-around shadow-2xl">
+        <a href="{{ url_for('index') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink {% if request.endpoint == 'index' %}active{% endif %} text-decoration-none">
+            <i class="fa-solid fa-house text-base nav-icon-home mb-0.5"></i>
+            <span class="text-[10px]">Home</span>
+        </a>
+        <a href="{{ url_for('search_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink {% if request.endpoint == 'search_page' %}active{% endif %} text-decoration-none">
+            <i class="fa-solid fa-magnifying-glass text-base nav-icon-search mb-0.5"></i>
+            <span class="text-[10px]">Search</span>
+        </a>
+        <a href="{{ url_for('dashboard') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink {% if request.endpoint == 'dashboard' %}active{% endif %} text-decoration-none">
+            <i class="fa-solid fa-chart-line text-base nav-icon-dashboard mb-0.5"></i>
+            <span class="text-[10px]">Dashboard</span>
+        </a>
+        <a href="{{ url_for('jobs_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink {% if request.endpoint == 'jobs_page' %}active{% endif %} text-decoration-none">
+            <i class="fa-solid fa-briefcase text-base nav-icon-jobs mb-0.5"></i>
+            <span class="text-[10px]">Jobs</span>
+        </a>
+        <a href="{{ url_for('analytics_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink {% if request.endpoint == 'analytics_page' %}active{% endif %} text-decoration-none">
+            <i class="fa-solid fa-chart-pie text-base nav-icon-analytics mb-0.5"></i>
+            <span class="text-[10px]">Analytics</span>
+        </a>
+        <a href="{{ url_for('database_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink {% if request.endpoint == 'database_page' %}active{% endif %} text-decoration-none">
+            <i class="fa-solid fa-database text-base nav-icon-database mb-0.5"></i>
+            <span class="text-[10px]">Database</span>
+        </a>
+    </nav>
+    <!-- END: Mobile Bottom Floating Navigation Bar -->
+
     <!-- Main Content Area -->
-    <main class="relative z-20 flex-1 flex flex-col">
+    <main class="relative z-20 flex-1 flex flex-col pb-16 lg:pb-0">
         {% block content %}{% endblock %}
     </main>
 

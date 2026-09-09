@@ -484,21 +484,6 @@
           <i class="fa-solid fa-house text-sky-400"></i>
           <span>Home</span>
         </a>
-        <!-- Features Anchor -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="#features">
-          <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
-          <span>Features</span>
-        </a>
-        <!-- Workflow Anchor -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="#workflow">
-          <i class="fa-solid fa-gears text-emerald-400"></i>
-          <span>Pipeline</span>
-        </a>
-        <!-- Tech Stack Anchor -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="#techstack">
-          <i class="fa-solid fa-microchip text-purple-400"></i>
-          <span>Tech Stack</span>
-        </a>
         <!-- Job Search & Scraper -->
         <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('search_page') }}">
           <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
@@ -554,6 +539,35 @@
     </div>
   </header>
   <!-- END: Desktop Navigation Bar -->
+
+  <!-- BEGIN: Mobile Bottom Floating Navigation Bar (Visible only on mobile screens < lg) -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 theme-navbar border-t border-slate-200/20 backdrop-blur-xl px-2 py-2 flex items-center justify-around shadow-2xl">
+    <a href="{{ url_for('index') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink active text-decoration-none">
+      <i class="fa-solid fa-house text-base text-sky-400 mb-0.5"></i>
+      <span class="text-[10px]">Home</span>
+    </a>
+    <a href="{{ url_for('search_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
+      <i class="fa-solid fa-magnifying-glass text-base text-cyan-400 mb-0.5"></i>
+      <span class="text-[10px]">Search</span>
+    </a>
+    <a href="{{ url_for('dashboard') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
+      <i class="fa-solid fa-chart-line text-base text-blue-400 mb-0.5"></i>
+      <span class="text-[10px]">Dashboard</span>
+    </a>
+    <a href="{{ url_for('jobs_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
+      <i class="fa-solid fa-briefcase text-base text-purple-400 mb-0.5"></i>
+      <span class="text-[10px]">Jobs</span>
+    </a>
+    <a href="{{ url_for('analytics_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
+      <i class="fa-solid fa-chart-pie text-base text-amber-400 mb-0.5"></i>
+      <span class="text-[10px]">Analytics</span>
+    </a>
+    <a href="{{ url_for('database_page') }}" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
+      <i class="fa-solid fa-database text-base text-emerald-400 mb-0.5"></i>
+      <span class="text-[10px]">Database</span>
+    </a>
+  </nav>
+  <!-- END: Mobile Bottom Floating Navigation Bar -->
 
   <!-- BEGIN: Desktop Two-Column Hero & Snapshot Section -->
   <main class="relative z-20 flex flex-col justify-center min-h-[calc(100vh-5rem)] py-12 lg:py-16">
@@ -1046,7 +1060,7 @@
   <!-- =========================================================================
        SECTION 5: Modern Footer
        ========================================================================= -->
-  <footer class="footer-naukri mt-auto relative z-20 transition-colors duration-300">
+  <footer class="footer-naukri mt-auto relative z-20 pb-20 lg:pb-12 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
         
