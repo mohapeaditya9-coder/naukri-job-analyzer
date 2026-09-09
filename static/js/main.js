@@ -153,7 +153,7 @@ function initMobileMenu() {
         if (mobileMenuBackdrop && mobileMenuDrawer) {
             mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
             mobileMenuBackdrop.classList.add('opacity-100', 'pointer-events-auto');
-            mobileMenuDrawer.classList.remove('translate-x-full');
+            mobileMenuDrawer.classList.remove('-translate-x-full');
             mobileMenuDrawer.classList.add('translate-x-0');
             document.body.style.overflow = 'hidden';
         }
@@ -164,7 +164,7 @@ function initMobileMenu() {
             mobileMenuBackdrop.classList.remove('opacity-100', 'pointer-events-auto');
             mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
             mobileMenuDrawer.classList.remove('translate-x-0');
-            mobileMenuDrawer.classList.add('translate-x-full');
+            mobileMenuDrawer.classList.add('-translate-x-full');
             document.body.style.overflow = '';
         }
     }
