@@ -38,6 +38,7 @@ function initTheme() {
 function setTheme(theme) {
     document.documentElement.setAttribute('data-bs-theme', theme);
     document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.documentElement.classList.toggle('light', theme === 'light');
     
     if (document.body) {
         document.body.classList.remove('theme-light', 'theme-dark');
@@ -59,30 +60,34 @@ function setTheme(theme) {
         }
     }
 
-    // Re-style Plotly charts for dark/light contrast if any charts are present
+    // Re-style Plotly charts for dark/light contrast
     rethemePlotlyCharts(theme);
 }
 
 function rethemePlotlyCharts(theme) {
     if (typeof Plotly === 'undefined') return;
     
-    const fontColor = theme === 'dark' ? '#94a3b8' : '#64748b';
-    const gridColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(148, 163, 184, 0.15)';
-    const titleColor = theme === 'dark' ? '#f8fafc' : '#1e293b';
+    const fontColor = theme === 'dark' ? '#cbd5e1' : '#334155';
+    const gridColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(148, 163, 184, 0.18)';
+    const titleColor = theme === 'dark' ? '#f8fafc' : '#0f172a';
 
-    const chartElements = document.querySelectorAll('.plotly-graph-div');
+    const chartElements = document.querySelectorAll('.plotly-graph-div, .chart-container');
     chartElements.forEach(elem => {
         try {
             Plotly.relayout(elem, {
                 'font.color': fontColor,
+                'xaxis.color': fontColor,
+                'yaxis.color': fontColor,
                 'xaxis.gridcolor': gridColor,
                 'yaxis.gridcolor': gridColor,
+                'xaxis.tickfont.color': fontColor,
+                'yaxis.tickfont.color': fontColor,
                 'title.font.color': titleColor,
                 'paper_bgcolor': 'rgba(0,0,0,0)',
                 'plot_bgcolor': 'rgba(0,0,0,0)'
             });
         } catch (e) {
-            // Chart may still be loading
+            // Chart may not yet be initialized
         }
     });
 }

@@ -1,9 +1,14 @@
 /* ==========================================================================
    Naukri IT Job Vacancy & Salary Trend Analyzer - Stylesheet
-   Theme: Next-Gen IT Career Intelligence (Tailwind + Custom 3D Animations)
+   Theme: Next-Gen IT Career Intelligence (High Contrast, Vivid Icons & Glow)
    ========================================================================== */
 
 /* Keyframe Animations */
+@keyframes stitch-anim-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-14px) rotate(3deg); }
@@ -54,6 +59,13 @@
   50% { transform: translateY(-6px) rotate(4deg) scale(1.08); }
 }
 
+.animate-smoke-1 { animation: smoke-1 12s ease-in-out infinite; }
+.animate-smoke-2 { animation: smoke-2 14s ease-in-out infinite; }
+.animate-smoke-3 { animation: smoke-3 16s ease-in-out infinite; }
+.animate-icon-1 { animation: icon-1 6s ease-in-out infinite; }
+.animate-icon-2 { animation: icon-2 7s ease-in-out infinite; }
+.animate-icon-3 { animation: icon-3 8s ease-in-out infinite; }
+
 /* Glass Sheen Effects */
 .glass-sheen {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
@@ -69,6 +81,11 @@
 }
 
 /* Dynamic Theme Switch Transitions */
+html, body {
+  min-height: 100%;
+  visibility: visible !important;
+}
+
 body {
   transition: background-color 0.4s ease, color 0.4s ease;
   min-height: 100vh;
@@ -100,12 +117,20 @@ body.theme-light .theme-navlink {
 
 body.theme-light .theme-navlink:hover {
   color: #0284c7;
+  background-color: #f1f5f9;
 }
 
 body.theme-light .theme-navlink.active {
   background-color: #e0f2fe;
   color: #0284c7;
 }
+
+body.theme-light .nav-icon-home { color: #0284c7; }
+body.theme-light .nav-icon-search { color: #0891b2; }
+body.theme-light .nav-icon-dashboard { color: #2563eb; }
+body.theme-light .nav-icon-jobs { color: #7c3aed; }
+body.theme-light .nav-icon-analytics { color: #d97706; }
+body.theme-light .nav-icon-database { color: #059669; }
 
 body.theme-light .theme-hero-badge {
   background: rgba(255, 255, 255, 0.18);
@@ -147,7 +172,7 @@ body.theme-light .theme-metric-label {
 
 body.theme-light .theme-toggle-btn {
   background: #ffffff;
-  border: 1px solid #0f172a;
+  border: 1px solid #cbd5e1;
   color: #0f172a;
 }
 
@@ -174,8 +199,8 @@ body.theme-light .theme-metric-val-blue { color: #0284c7; }
 body.theme-light .theme-metric-val-emerald { color: #059669; }
 body.theme-light .theme-metric-val-dark { color: #0f172a; }
 
-body.theme-light .theme-brand-naukri { color: #f97316; }
-body.theme-light .theme-brand-analyzer { color: #0284c7; }
+body.theme-light .theme-brand-naukri { color: #f97316 !important; }
+body.theme-light .theme-brand-analyzer { color: #0284c7 !important; }
 body.theme-light .theme-badge-it {
   background-color: #dbeafe;
   color: #1d4ed8;
@@ -191,11 +216,24 @@ body.theme-light .theme-card-timestamp {
   color: #64748b;
 }
 
-body.theme-light .card-naukri {
+body.theme-light .card-naukri,
+body.theme-light .kpi-card,
+body.theme-light .chart-card {
   background-color: #ffffff;
-  border-color: #e2e8f0;
+  border: 1px solid #e2e8f0;
   color: #0f172a;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
 }
+
+body.theme-light .kpi-icon-wrap.kpi-blue { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+body.theme-light .kpi-icon-wrap.kpi-sky { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+body.theme-light .kpi-icon-wrap.kpi-purple { background: #f3e8ff; color: #7c3aed; border: 1px solid #e9d5ff; }
+body.theme-light .kpi-icon-wrap.kpi-green { background: #dcfce7; color: #059669; border: 1px solid #bbf7d0; }
+body.theme-light .kpi-icon-wrap.kpi-amber { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+
+body.theme-light .kpi-label { color: #64748b; }
+body.theme-light .kpi-value { color: #0f172a; }
+body.theme-light .kpi-subtext { color: #475569; }
 
 body.theme-light .footer-naukri {
   background-color: #043d6e;
@@ -210,7 +248,7 @@ body.theme-light .footer-link:hover {
 }
 
 /* ==========================================================================
-   THEME: Dark Mode
+   THEME: Dark Mode (High Contrast & Glowing Luminous Icons)
    ========================================================================== */
 body.theme-dark, [data-bs-theme="dark"] body {
   background: linear-gradient(180deg, #07101e 0%, #0b1528 50%, #040913 100%);
@@ -218,27 +256,36 @@ body.theme-dark, [data-bs-theme="dark"] body {
 }
 
 body.theme-dark .theme-navbar {
-  background: rgba(11, 21, 40, 0.96);
-  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  background: rgba(11, 21, 40, 0.98);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
 }
 
 body.theme-dark .theme-navlink {
-  color: #94a3b8;
+  color: #e2e8f0;
 }
 
 body.theme-dark .theme-navlink:hover {
   color: #38bdf8;
+  background-color: rgba(56, 189, 248, 0.12);
 }
 
 body.theme-dark .theme-navlink.active {
-  background-color: rgba(14, 165, 233, 0.2);
+  background-color: rgba(14, 165, 233, 0.25);
   color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
 }
 
+body.theme-dark .nav-icon-home { color: #38bdf8; }
+body.theme-dark .nav-icon-search { color: #22d3ee; }
+body.theme-dark .nav-icon-dashboard { color: #60a5fa; }
+body.theme-dark .nav-icon-jobs { color: #c084fc; }
+body.theme-dark .nav-icon-analytics { color: #fbbf24; }
+body.theme-dark .nav-icon-database { color: #34d399; }
+
 body.theme-dark .theme-hero-badge {
-  background: rgba(14, 165, 233, 0.18);
-  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(14, 165, 233, 0.22);
+  border-color: rgba(56, 189, 248, 0.5);
   color: #bae6fd;
 }
 
@@ -254,8 +301,8 @@ body.theme-dark .theme-hero-desc {
 body.theme-dark .theme-card-container {
   background: #0f1c32;
   color: #f1f5f9;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.15);
 }
 
 body.theme-dark .theme-card-title {
@@ -264,11 +311,11 @@ body.theme-dark .theme-card-title {
 
 body.theme-dark .theme-metric-card {
   background: #14243e;
-  border: 1px solid rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
 body.theme-dark .theme-metric-card:hover {
-  border-color: rgba(56, 189, 248, 0.4);
+  border-color: rgba(56, 189, 248, 0.5);
 }
 
 body.theme-dark .theme-metric-label {
@@ -276,9 +323,10 @@ body.theme-dark .theme-metric-label {
 }
 
 body.theme-dark .theme-toggle-btn {
-  background: #1e293b;
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #f1f5f9;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  color: #fbbf24;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
 }
 
 body.theme-dark .theme-ambient-glow-1 {
@@ -292,20 +340,20 @@ body.theme-dark .theme-ambient-glow-3 {
 }
 
 body.theme-dark .theme-floating-cube {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(15, 23, 42, 0.6) 100%);
-  border-color: rgba(56, 189, 248, 0.3);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(15, 23, 42, 0.7) 100%);
+  border-color: rgba(56, 189, 248, 0.4);
 }
 body.theme-dark .theme-floating-pill {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(15, 23, 42, 0.6) 100%);
-  border-color: rgba(56, 189, 248, 0.3);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(15, 23, 42, 0.7) 100%);
+  border-color: rgba(56, 189, 248, 0.4);
 }
 
 body.theme-dark .theme-metric-val-blue { color: #38bdf8; }
 body.theme-dark .theme-metric-val-emerald { color: #34d399; }
 body.theme-dark .theme-metric-val-dark { color: #f1f5f9; }
 
-body.theme-dark .theme-brand-naukri { color: #f97316; }
-body.theme-dark .theme-brand-analyzer { color: #38bdf8; }
+body.theme-dark .theme-brand-naukri { color: #f97316 !important; }
+body.theme-dark .theme-brand-analyzer { color: #38bdf8 !important; }
 body.theme-dark .theme-badge-it {
   background-color: rgba(56, 189, 248, 0.2);
   color: #38bdf8;
@@ -321,11 +369,75 @@ body.theme-dark .theme-card-timestamp {
   color: #94a3b8;
 }
 
-body.theme-dark .card-naukri {
+/* Dark Mode Cards & KPI Badges */
+body.theme-dark .card-naukri,
+body.theme-dark .kpi-card,
+body.theme-dark .chart-card {
   background-color: #0f1c32;
-  border-color: rgba(56, 189, 248, 0.25);
+  border: 1px solid rgba(56, 189, 248, 0.25);
   color: #f1f5f9;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.06);
 }
+
+body.theme-dark .card-title-naukri {
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+body.theme-dark .badge.bg-light {
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+}
+
+/* Luminous Neon KPI Icon Boxes in Dark Mode */
+body.theme-dark .kpi-icon-wrap.kpi-blue {
+  background: rgba(14, 165, 233, 0.25);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 16px rgba(14, 165, 233, 0.35);
+}
+
+body.theme-dark .kpi-icon-wrap.kpi-sky {
+  background: rgba(6, 182, 212, 0.25);
+  color: #22d3ee;
+  border: 1px solid rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+}
+
+body.theme-dark .kpi-icon-wrap.kpi-purple {
+  background: rgba(168, 85, 247, 0.25);
+  color: #c084fc;
+  border: 1px solid rgba(192, 132, 252, 0.6);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.35);
+}
+
+body.theme-dark .kpi-icon-wrap.kpi-green {
+  background: rgba(16, 185, 129, 0.25);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.6);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.35);
+}
+
+body.theme-dark .kpi-icon-wrap.kpi-amber {
+  background: rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.6);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+}
+
+body.theme-dark .kpi-label { color: #94a3b8; }
+body.theme-dark .kpi-value { color: #ffffff; }
+body.theme-dark .kpi-subtext { color: #94a3b8; }
+
+/* Dark Mode Bright Accent Colors */
+body.theme-dark .text-primary { color: #38bdf8 !important; }
+body.theme-dark .text-accent { color: #38bdf8 !important; }
+body.theme-dark .text-purple { color: #c084fc !important; }
+body.theme-dark .text-success { color: #34d399 !important; }
+body.theme-dark .text-warning { color: #fbbf24 !important; }
+body.theme-dark .text-info { color: #22d3ee !important; }
+body.theme-dark .text-muted { color: #94a3b8 !important; }
 
 body.theme-dark .footer-naukri {
   background-color: #060d19;
@@ -361,7 +473,7 @@ body.theme-dark .footer-link:hover {
 
 .kpi-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px -5px rgba(10, 102, 194, 0.2);
+  box-shadow: 0 10px 20px -5px rgba(10, 102, 194, 0.25);
 }
 
 .kpi-icon-wrap {
@@ -373,17 +485,16 @@ body.theme-dark .footer-link:hover {
   justify-content: center;
   font-size: 1.35rem;
   margin-bottom: 1rem;
+  transition: transform 0.2s ease;
 }
 
-.kpi-blue { background: rgba(14, 165, 233, 0.15); color: #0284c7; }
-.kpi-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-.kpi-amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-.kpi-purple { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
-.kpi-sky { background: rgba(56, 189, 248, 0.15); color: #0284c7; }
+.kpi-card:hover .kpi-icon-wrap {
+  transform: scale(1.08);
+}
 
 .kpi-label {
   font-size: 0.825rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 0.25rem;
@@ -400,7 +511,8 @@ body.theme-dark .footer-link:hover {
   font-size: 0.8rem;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.35rem;
+  font-weight: 500;
 }
 
 .chart-card {
@@ -439,43 +551,68 @@ body.theme-dark .footer-link:hover {
   font-size: 0.9rem;
 }
 
+body.theme-dark .table-naukri th {
+  background: #14243e;
+  color: #94a3b8;
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+body.theme-dark .table-naukri td {
+  color: #f1f5f9;
+  border-color: rgba(56, 189, 248, 0.15);
+}
+
+body.theme-dark .table-naukri tr:hover td {
+  background: rgba(56, 189, 248, 0.08);
+}
+
 .skill-tag {
   display: inline-block;
-  background: rgba(148, 163, 184, 0.12);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(14, 165, 233, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 0.2rem 0.55rem;
   border-radius: 9999px;
   margin: 0.15rem;
   white-space: nowrap;
+  color: inherit;
+}
+
+body.theme-dark .skill-tag {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #bae6fd;
 }
 
 .badge-mode-remote {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #34d399;
   font-weight: 600;
   padding: 0.3rem 0.65rem;
   border-radius: 9999px;
   font-size: 0.775rem;
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }
 
 .badge-mode-hybrid {
-  background-color: rgba(14, 165, 233, 0.15);
-  color: #0284c7;
+  background-color: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
   font-weight: 600;
   padding: 0.3rem 0.65rem;
   border-radius: 9999px;
   font-size: 0.775rem;
+  border: 1px solid rgba(14, 165, 233, 0.4);
 }
 
 .badge-mode-onsite {
-  background-color: rgba(10, 102, 194, 0.15);
-  color: #0a66c2;
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
   font-weight: 600;
   padding: 0.3rem 0.65rem;
   border-radius: 9999px;
   font-size: 0.775rem;
+  border: 1px solid rgba(99, 102, 241, 0.4);
 }
 
 .btn-primary-naukri {
@@ -489,17 +626,19 @@ body.theme-dark .footer-link:hover {
   align-items: center;
   gap: 0.45rem;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 98, 204, 0.3);
 }
 
 .btn-primary-naukri:hover {
-  background-color: #004ea8;
+  background-color: #0052ad;
   color: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 98, 204, 0.45);
 }
 
 .btn-secondary-naukri {
-  background-color: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   color: inherit;
   font-weight: 600;
   border-radius: 12px;
@@ -511,8 +650,10 @@ body.theme-dark .footer-link:hover {
 }
 
 .btn-secondary-naukri:hover {
-  background-color: rgba(255, 255, 255, 0.22);
+  background-color: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
   color: inherit;
+  transform: translateY(-1px);
 }
 
 .console-box {
