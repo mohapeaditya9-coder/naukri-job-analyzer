@@ -489,28 +489,38 @@
           <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
           <span>Features</span>
         </a>
+        <!-- Workflow Anchor -->
+        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="#workflow">
+          <i class="fa-solid fa-gears text-emerald-400"></i>
+          <span>Pipeline</span>
+        </a>
+        <!-- Tech Stack Anchor -->
+        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="#techstack">
+          <i class="fa-solid fa-microchip text-purple-400"></i>
+          <span>Tech Stack</span>
+        </a>
         <!-- Job Search & Scraper -->
         <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('search_page') }}">
           <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
           <span>Search &amp; Scrape</span>
         </a>
         <!-- Dashboard -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('dashboard') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('dashboard') }}">
           <i class="fa-solid fa-chart-line text-blue-400"></i>
           <span>Dashboard</span>
         </a>
         <!-- Job Listings -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('jobs_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('jobs_page') }}">
           <i class="fa-solid fa-briefcase text-purple-400"></i>
-          <span>Job Listings</span>
+          <span>Jobs</span>
         </a>
         <!-- Analytics & Insights -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('analytics_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('analytics_page') }}">
           <i class="fa-solid fa-chart-pie text-amber-400"></i>
           <span>Analytics</span>
         </a>
         <!-- Database -->
-        <a class="theme-navlink flex items-center space-x-2 px-3 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('database_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('database_page') }}">
           <i class="fa-solid fa-database text-emerald-400"></i>
           <span>Database</span>
         </a>
@@ -957,7 +967,7 @@
   <!-- =========================================================================
        SECTION 3: In-Demand Tech Stacks & Skill Badges
        ========================================================================= -->
-  <section class="relative z-20 py-16 feature-section-bg border-t border-white/10 transition-colors duration-300">
+  <section id="techstack" class="relative z-20 py-16 feature-section-bg border-t border-white/10 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       
       <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
