@@ -2,11 +2,10 @@
 
 A modern full-stack web application designed to scrape IT job listings from Naukri.com, store structured data in SQLite, perform data analysis with Pandas & NumPy, and visualize insights through an interactive LinkedIn-Analytics-style dashboard with Plotly.js.
 
-![Theme](https://img.shields.io/badge/Theme-LinkedIn%20Analytics-0a66c2)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Flask](https://img.shields.io/badge/Flask-3.x-black)
-![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Charts-indigo)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Home%20%2F%20Landing%20Page-brightgreen?style=for-the-badge&logo=github)](https://mohapeaditya9-coder.github.io/naukri-job-analyzer/)
+[![Theme](https://img.shields.io/badge/Theme-Modern%203D%20Canvas-0a66c2?style=for-the-badge)](https://mohapeaditya9-coder.github.io/naukri-job-analyzer/)
+
+> 🚀 **Live Landing Page Preview**: [https://mohapeaditya9-coder.github.io/naukri-job-analyzer/](https://mohapeaditya9-coder.github.io/naukri-job-analyzer/)
 
 ---
 
