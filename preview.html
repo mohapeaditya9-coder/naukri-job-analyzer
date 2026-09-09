@@ -9,8 +9,7 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Custom Application Stylesheet -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="static/css/style.css">
   
   <!-- Tailwind Configuration -->
   <script>
@@ -182,9 +181,6 @@
       background: #ffffff;
       color: #1e293b;
       box-shadow: 0 25px 50px -12px rgba(3, 37, 76, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3);
-    }
-    body.theme-card-title {
-      color: inherit;
     }
     body.theme-light .theme-card-title {
       color: #0f172a;
@@ -392,7 +388,7 @@
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       
       <!-- Brand Logo Section -->
-      <a class="flex items-center space-x-3 group focus:outline-none flex-shrink-0 text-decoration-none" href="{{ url_for('index') }}">
+      <a class="flex items-center space-x-3 group focus:outline-none flex-shrink-0 text-decoration-none" href="http://127.0.0.1:5000/">
         <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-blue-800 p-0.5 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center">
           <div class="w-full h-full bg-[#005ea6] rounded-[10px] flex items-center justify-center">
             <!-- Analytic Growth Icon -->
@@ -413,21 +409,21 @@
       <!-- Center Desktop Navigation Links -->
       <nav class="hidden lg:flex items-center space-x-1 font-semibold text-sm">
         <!-- Home (Active Link) -->
-        <a class="theme-navlink active flex items-center space-x-2 px-4 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('index') }}">
+        <a class="theme-navlink active flex items-center space-x-2 px-4 py-2 rounded-xl transition-all text-decoration-none" href="http://127.0.0.1:5000/">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
           </svg>
           <span>Home</span>
         </a>
         <!-- Job Search & Scraper -->
-        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('search_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="http://127.0.0.1:5000/search">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
           <span>Job Search &amp; Scraper</span>
         </a>
         <!-- Dashboard -->
-        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('dashboard') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="http://127.0.0.1:5000/dashboard">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="9"></circle>
             <path d="M12 12l3-2M12 7v1M7 12h1M16 12h1M9.5 9.5l.7.7M14.5 9.5l-.7.7" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -435,21 +431,21 @@
           <span>Dashboard</span>
         </a>
         <!-- Job Listings -->
-        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('jobs_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="http://127.0.0.1:5000/jobs">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"></path>
           </svg>
           <span>Job Listings</span>
         </a>
         <!-- Analytics & Insights -->
-        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('analytics_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="http://127.0.0.1:5000/analytics">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"></path>
           </svg>
           <span>Analytics &amp; Insights</span>
         </a>
         <!-- Database -->
-        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="{{ url_for('database_page') }}">
+        <a class="theme-navlink flex items-center space-x-2 px-3.5 py-2 rounded-xl transition-all text-decoration-none" href="http://127.0.0.1:5000/database">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 3.79 2 6v12c0 2.21 4.48 4 10 4s10-1.79 10-4V6c0-2.21-4.48-4-10-4zm0 2c4.42 0 8 1.34 8 2s-3.58 2-8 2-8-1.34-8-2 3.58-2 8-2zm0 16c-4.42 0-8-1.34-8-2v-2.23c2.09 1.4 5.09 2.23 8 2.23s5.91-.83 8-2.23V18c0 .66-3.58 2-8 2zm0-5c-4.42 0-8-1.34-8-2v-2.23c2.09 1.4 5.09 2.23 8 2.23s5.91-.83 8-2.23V13c0 .66-3.58 2-8 2z"></path>
           </svg>
@@ -473,7 +469,7 @@
         </button>
 
         <!-- Energetic Scrape Now CTA Button -->
-        <a href="{{ url_for('search_page') }}" class="relative group overflow-hidden px-5 py-2.5 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all flex items-center space-x-2 text-decoration-none">
+        <a href="http://127.0.0.1:5000/search" class="relative group overflow-hidden px-5 py-2.5 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all flex items-center space-x-2 text-decoration-none">
           <div class="absolute inset-0 shimmer-edge opacity-60"></div>
           <svg class="w-4 h-4 text-amber-300 fill-amber-300" viewBox="0 0 24 24">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
@@ -572,7 +568,7 @@
           <!-- Desktop CTA Row -->
           <div class="pt-3 flex flex-wrap items-center gap-4 w-full">
             <!-- Solid Primary: Start Analysis -->
-            <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-white hover:bg-sky-50 text-[#0062cc] font-bold text-base shadow-xl shadow-blue-950/20 active:scale-95 transition-all text-decoration-none" href="{{ url_for('search_page') }}">
+            <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-white hover:bg-sky-50 text-[#0062cc] font-bold text-base shadow-xl shadow-blue-950/20 active:scale-95 transition-all text-decoration-none" href="http://127.0.0.1:5000/search">
               <svg class="w-4 h-4 text-[#0062cc] fill-[#0062cc]" viewBox="0 0 24 24">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
@@ -580,7 +576,7 @@
             </a>
 
             <!-- Glass Outline: View Live Dashboard -->
-            <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl glass-sheen hover:bg-white/20 text-white font-semibold text-base border active:scale-95 transition-all text-decoration-none" href="{{ url_for('dashboard') }}">
+            <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl glass-sheen hover:bg-white/20 text-white font-semibold text-base border active:scale-95 transition-all text-decoration-none" href="http://127.0.0.1:5000/dashboard">
               <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
@@ -588,11 +584,11 @@
             </a>
 
             <!-- Glass Outline: Browse Jobs (32) -->
-            <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl glass-sheen hover:bg-white/20 text-white font-semibold text-base border active:scale-95 transition-all text-decoration-none" href="{{ url_for('jobs_page') }}">
+            <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl glass-sheen hover:bg-white/20 text-white font-semibold text-base border active:scale-95 transition-all text-decoration-none" href="http://127.0.0.1:5000/jobs">
               <svg class="w-4 h-4 text-blue-100" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path d="M4 6h16M4 10h16M4 14h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
-              <span>Browse Jobs ({{ stats.total_jobs or 32 }})</span>
+              <span>Browse Jobs (32)</span>
             </a>
           </div>
 
@@ -622,25 +618,25 @@
               <!-- Metric 1: Total Jobs Indexed -->
               <div class="theme-metric-card p-5 rounded-2xl transition-all">
                 <span class="theme-metric-label text-sm font-semibold block">Total Jobs Indexed</span>
-                <p class="theme-metric-val-blue text-3xl font-black mt-2 tracking-tight">{{ kpis.total_jobs or stats.total_jobs or 32 }}</p>
+                <p class="theme-metric-val-blue text-3xl font-black mt-2 tracking-tight">32</p>
               </div>
 
               <!-- Metric 2: Average Salary -->
               <div class="theme-metric-card p-5 rounded-2xl transition-all">
                 <span class="theme-metric-label text-sm font-semibold block">Average Salary</span>
-                <p class="theme-metric-val-emerald text-3xl font-black mt-2 tracking-tight">₹{{ kpis.avg_salary or 24.4 }} <span class="text-2xl font-bold">LPA</span></p>
+                <p class="theme-metric-val-emerald text-3xl font-black mt-2 tracking-tight">₹24.4 <span class="text-2xl font-bold">LPA</span></p>
               </div>
 
               <!-- Metric 3: Active Companies -->
               <div class="theme-metric-card p-5 rounded-2xl transition-all">
                 <span class="theme-metric-label text-sm font-semibold block">Active Companies</span>
-                <p class="theme-metric-val-dark text-3xl font-black mt-2 tracking-tight">{{ kpis.unique_companies or stats.total_companies or 31 }}</p>
+                <p class="theme-metric-val-dark text-3xl font-black mt-2 tracking-tight">31</p>
               </div>
 
               <!-- Metric 4: Top Tech Hub -->
               <div class="theme-metric-card p-5 rounded-2xl transition-all">
                 <span class="theme-metric-label text-sm font-semibold block">Top Tech Hub</span>
-                <p class="theme-metric-val-dark text-2xl font-black mt-2.5 tracking-tight truncate">{{ kpis.top_city or 'Bengaluru' }}</p>
+                <p class="theme-metric-val-dark text-2xl font-black mt-2.5 tracking-tight truncate">Bengaluru</p>
               </div>
             </div>
 
@@ -650,7 +646,7 @@
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              <span>Last updated: {{ kpis.last_updated or stats.last_scraped or '2026-09-02 14:32:37' }}</span>
+              <span>Last updated: 2026-09-02 14:32:37</span>
             </div>
 
           </div>
