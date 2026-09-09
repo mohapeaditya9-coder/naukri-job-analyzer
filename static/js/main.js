@@ -16,10 +16,19 @@ function initTheme() {
     const savedTheme = localStorage.getItem('naukri_theme') || 'light';
     setTheme(savedTheme);
 
-    const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
-    toggleBtns.forEach(btn => {
+    const toggleBtn = document.getElementById('themeToggleBtn');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+    }
+
+    const otherToggleBtns = document.querySelectorAll('.theme-toggle-btn:not(#themeToggleBtn)');
+    otherToggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+            const currentTheme = document.body.classList.contains('theme-dark') ? 'dark' : 'light';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
@@ -28,19 +37,27 @@ function initTheme() {
 
 function setTheme(theme) {
     document.documentElement.setAttribute('data-bs-theme', theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    
+    if (document.body) {
+        document.body.classList.remove('theme-light', 'theme-dark');
+        document.body.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
+    }
+    
     localStorage.setItem('naukri_theme', theme);
     
     // Update theme toggle button icons
-    const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
-    toggleBtns.forEach(btn => {
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+    if (moonIcon && sunIcon) {
         if (theme === 'dark') {
-            btn.innerHTML = '<i class="fa-solid fa-sun text-warning"></i>';
-            btn.setAttribute('title', 'Switch to Light Mode');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
         } else {
-            btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            btn.setAttribute('title', 'Switch to Dark Mode');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
         }
-    });
+    }
 
     // Re-style Plotly charts for dark/light contrast if any charts are present
     rethemePlotlyCharts(theme);
@@ -76,7 +93,8 @@ function rethemePlotlyCharts(theme) {
 function initCounters() {
     const counterElements = document.querySelectorAll('.counter-anim');
     counterElements.forEach(el => {
-        const target = parseFloat(el.getAttribute('data-target') || el.innerText.replace(/[^0-9.]/g, ''));
+        const rawTarget = el.getAttribute('data-target') || el.innerText.replace(/[^0-9.]/g, '');
+        const target = parseFloat(rawTarget);
         if (isNaN(target)) return;
         
         const isDecimal = target % 1 !== 0;
