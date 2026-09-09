@@ -680,3 +680,105 @@ body.theme-dark .skill-tag {
   color: #10b981;
   font-weight: bold;
 }
+
+/* ==========================================================================
+   Form Controls & Input Fields (Black / Crisp Dark Text on White / Light Boxes)
+   ========================================================================== */
+.form-control,
+.form-select,
+.input-group-text,
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important; /* Pure crisp dark black text */
+  border: 1px solid #cbd5e1 !important;
+  font-weight: 500;
+}
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #0084ff !important;
+  box-shadow: 0 0 0 0.25rem rgba(0, 132, 255, 0.25) !important;
+  outline: none;
+}
+
+/* Placeholders in inputs */
+.form-control::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #64748b !important; /* Dark legible placeholder */
+  opacity: 1 !important;
+}
+
+/* Options inside select dropdowns */
+.form-select option,
+select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.input-group-text {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.input-group-text i,
+.input-group-text svg {
+  color: #0284c7 !important;
+}
+
+/* Dark mode specific override ensuring input boxes stay crisp black text */
+body.theme-dark .form-control,
+body.theme-dark .form-select,
+body.theme-dark input[type="text"],
+body.theme-dark input[type="number"],
+body.theme-dark input[type="search"],
+body.theme-dark select,
+body.theme-dark textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.theme-dark .form-control::placeholder,
+body.theme-dark input::placeholder,
+body.theme-dark textarea::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+body.theme-dark .form-select option,
+body.theme-dark select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+body.theme-dark .input-group-text {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.theme-dark .input-group-text i,
+body.theme-dark .input-group-text svg {
+  color: #0284c7 !important;
+}
+
+/* White boxes & Light Badges text color */
+.bg-white,
+.bg-light,
+.badge.bg-white,
+.badge.bg-light {
+  color: #0f172a !important;
+}
