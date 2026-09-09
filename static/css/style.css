@@ -782,3 +782,164 @@ body.theme-dark .input-group-text svg {
 .badge.bg-light {
   color: #0f172a !important;
 }
+
+/* ==========================================================================
+   Mobile 3-Lines Hamburger Button & Slide-Out Drawer Theme Contrast
+   ========================================================================== */
+
+/* Light Theme 3-Lines Button */
+body.theme-light #mobileMenuBtn,
+[data-bs-theme="light"] #mobileMenuBtn {
+  background-color: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+body.theme-light #mobileMenuBtn:hover,
+[data-bs-theme="light"] #mobileMenuBtn:hover {
+  background-color: #e2e8f0 !important;
+  border-color: #94a3b8 !important;
+  color: #0284c7 !important;
+}
+body.theme-light #mobileMenuBtn i,
+[data-bs-theme="light"] #mobileMenuBtn i {
+  color: #0284c7 !important;
+}
+
+/* Dark Theme 3-Lines Button */
+body.theme-dark #mobileMenuBtn,
+[data-bs-theme="dark"] #mobileMenuBtn {
+  background-color: rgba(15, 28, 50, 0.9) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15) !important;
+}
+body.theme-dark #mobileMenuBtn:hover,
+[data-bs-theme="dark"] #mobileMenuBtn:hover {
+  background-color: rgba(56, 189, 248, 0.2) !important;
+  border-color: #38bdf8 !important;
+  color: #38bdf8 !important;
+}
+body.theme-dark #mobileMenuBtn i,
+[data-bs-theme="dark"] #mobileMenuBtn i {
+  color: #38bdf8 !important;
+}
+
+/* Mobile Slide-Out Drawer: Light Theme */
+body.theme-light #mobileMenuDrawer,
+[data-bs-theme="light"] #mobileMenuDrawer {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-right: 1px solid #e2e8f0 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-light #mobileMenuCloseBtn,
+[data-bs-theme="light"] #mobileMenuCloseBtn {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+body.theme-light #mobileMenuCloseBtn:hover,
+[data-bs-theme="light"] #mobileMenuCloseBtn:hover {
+  background-color: #e2e8f0 !important;
+  color: #0284c7 !important;
+}
+
+body.theme-light .mobile-nav-link,
+[data-bs-theme="light"] .mobile-nav-link {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  background-color: transparent !important;
+}
+body.theme-light .mobile-nav-link:hover,
+[data-bs-theme="light"] .mobile-nav-link:hover {
+  background-color: #f1f5f9 !important;
+  color: #0284c7 !important;
+}
+body.theme-light .mobile-nav-link.active,
+[data-bs-theme="light"] .mobile-nav-link.active {
+  background-color: #e0f2fe !important;
+  color: #0284c7 !important;
+  border: 1px solid #bae6fd !important;
+  font-weight: 700 !important;
+}
+
+body.theme-light .mobile-drawer-brand-sub,
+[data-bs-theme="light"] .mobile-drawer-brand-sub {
+  color: #0284c7 !important;
+  font-weight: 800 !important;
+}
+
+body.theme-light .mobile-drawer-footer-text,
+[data-bs-theme="light"] .mobile-drawer-footer-text {
+  color: #334155 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+body.theme-light .mobile-drawer-status-online,
+[data-bs-theme="light"] .mobile-drawer-status-online {
+  color: #059669 !important;
+  font-weight: 700 !important;
+}
+
+/* Mobile Slide-Out Drawer: Dark Theme */
+body.theme-dark #mobileMenuDrawer,
+[data-bs-theme="dark"] #mobileMenuDrawer {
+  background-color: #0b162c !important;
+  color: #f8fafc !important;
+  border-right: 1px solid rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.theme-dark #mobileMenuCloseBtn,
+[data-bs-theme="dark"] #mobileMenuCloseBtn {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+body.theme-dark #mobileMenuCloseBtn:hover,
+[data-bs-theme="dark"] #mobileMenuCloseBtn:hover {
+  background-color: rgba(56, 189, 248, 0.2) !important;
+  color: #38bdf8 !important;
+}
+
+body.theme-dark .mobile-nav-link,
+[data-bs-theme="dark"] .mobile-nav-link {
+  color: #f1f5f9 !important;
+  font-weight: 600 !important;
+  background-color: transparent !important;
+}
+body.theme-dark .mobile-nav-link:hover,
+[data-bs-theme="dark"] .mobile-nav-link:hover {
+  background-color: rgba(56, 189, 248, 0.12) !important;
+  color: #38bdf8 !important;
+}
+body.theme-dark .mobile-nav-link.active,
+[data-bs-theme="dark"] .mobile-nav-link.active {
+  background-color: rgba(14, 165, 233, 0.22) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+body.theme-dark .mobile-drawer-brand-sub,
+[data-bs-theme="dark"] .mobile-drawer-brand-sub {
+  color: #38bdf8 !important;
+  font-weight: 800 !important;
+}
+
+body.theme-dark .mobile-drawer-footer-text,
+[data-bs-theme="dark"] .mobile-drawer-footer-text {
+  color: #94a3b8 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+body.theme-dark .mobile-drawer-status-online,
+[data-bs-theme="dark"] .mobile-drawer-status-online {
+  color: #34d399 !important;
+  font-weight: 700 !important;
+}
+

@@ -416,6 +416,127 @@
       background-color: #ffffff !important;
       color: #0f172a !important;
     }
+
+    /* 3-Lines Hamburger Button & Mobile Drawer Theme Styles */
+    body.theme-light #mobileMenuBtn {
+      background-color: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    }
+    body.theme-light #mobileMenuBtn:hover {
+      background-color: #e2e8f0 !important;
+      border-color: #94a3b8 !important;
+      color: #0284c7 !important;
+    }
+    body.theme-light #mobileMenuBtn i {
+      color: #0284c7 !important;
+    }
+
+    body.theme-dark #mobileMenuBtn {
+      background-color: rgba(15, 28, 50, 0.9) !important;
+      border: 1px solid rgba(56, 189, 248, 0.35) !important;
+      color: #f8fafc !important;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15) !important;
+    }
+    body.theme-dark #mobileMenuBtn:hover {
+      background-color: rgba(56, 189, 248, 0.2) !important;
+      border-color: #38bdf8 !important;
+      color: #38bdf8 !important;
+    }
+    body.theme-dark #mobileMenuBtn i {
+      color: #38bdf8 !important;
+    }
+
+    /* Mobile Drawer: Light Mode */
+    body.theme-light #mobileMenuDrawer {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-right: 1px solid #e2e8f0 !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    }
+    body.theme-light #mobileMenuCloseBtn {
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    body.theme-light #mobileMenuCloseBtn:hover {
+      background-color: #e2e8f0 !important;
+      color: #0284c7 !important;
+    }
+    body.theme-light .mobile-nav-link {
+      color: #0f172a !important;
+      font-weight: 600 !important;
+      background-color: transparent !important;
+    }
+    body.theme-light .mobile-nav-link:hover {
+      background-color: #f1f5f9 !important;
+      color: #0284c7 !important;
+    }
+    body.theme-light .mobile-nav-link.active {
+      background-color: #e0f2fe !important;
+      color: #0284c7 !important;
+      border: 1px solid #bae6fd !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light .mobile-drawer-brand-sub {
+      color: #0284c7 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-light .mobile-drawer-footer-text {
+      color: #334155 !important;
+      font-weight: 600 !important;
+      opacity: 1 !important;
+    }
+    body.theme-light .mobile-drawer-status-online {
+      color: #059669 !important;
+      font-weight: 700 !important;
+    }
+
+    /* Mobile Drawer: Dark Mode */
+    body.theme-dark #mobileMenuDrawer {
+      background-color: #0b162c !important;
+      color: #f8fafc !important;
+      border-right: 1px solid rgba(56, 189, 248, 0.25) !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+    }
+    body.theme-dark #mobileMenuCloseBtn {
+      background-color: #1e293b !important;
+      color: #f8fafc !important;
+      border: 1px solid rgba(56, 189, 248, 0.3) !important;
+    }
+    body.theme-dark #mobileMenuCloseBtn:hover {
+      background-color: rgba(56, 189, 248, 0.2) !important;
+      color: #38bdf8 !important;
+    }
+    body.theme-dark .mobile-nav-link {
+      color: #f1f5f9 !important;
+      font-weight: 600 !important;
+      background-color: transparent !important;
+    }
+    body.theme-dark .mobile-nav-link:hover {
+      background-color: rgba(56, 189, 248, 0.12) !important;
+      color: #38bdf8 !important;
+    }
+    body.theme-dark .mobile-nav-link.active {
+      background-color: rgba(14, 165, 233, 0.22) !important;
+      color: #38bdf8 !important;
+      border: 1px solid rgba(56, 189, 248, 0.4) !important;
+      font-weight: 700 !important;
+    }
+    body.theme-dark .mobile-drawer-brand-sub {
+      color: #38bdf8 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-dark .mobile-drawer-footer-text {
+      color: #94a3b8 !important;
+      font-weight: 600 !important;
+      opacity: 1 !important;
+    }
+    body.theme-dark .mobile-drawer-status-online {
+      color: #34d399 !important;
+      font-weight: 700 !important;
+    }
   </style>
   <!-- END: Custom Keyframe & 3D Lighting Styles -->
 </head>
@@ -572,39 +693,39 @@
             <span class="font-extrabold text-lg tracking-tight leading-none">
               <span style="color: #f97316;">Naukri</span><span class="text-sky-500">Analyzer</span>
             </span>
-            <span class="text-[9px] font-extrabold tracking-wider uppercase text-sky-400 mt-0.5">
+            <span class="mobile-drawer-brand-sub text-[9px] font-extrabold tracking-wider uppercase mt-0.5">
               IT Trends &bull; Analytics
             </span>
           </div>
         </div>
-        <button id="mobileMenuCloseBtn" aria-label="Close navigation menu" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">
+        <button id="mobileMenuCloseBtn" aria-label="Close navigation menu" class="w-9 h-9 rounded-xl flex items-center justify-center transition-colors focus:outline-none cursor-pointer">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
       <!-- Drawer Navigation Links -->
       <nav class="mt-6 flex flex-col space-y-2">
-        <a href="#" class="mobile-nav-link active flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400">
+        <a href="#" class="mobile-nav-link active flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none">
           <i class="fa-solid fa-house text-base w-5 text-center text-sky-400"></i>
           <span>Home</span>
         </a>
-        <a href="http://127.0.0.1:5000/search" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+        <a href="http://127.0.0.1:5000/search" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none">
           <i class="fa-solid fa-magnifying-glass text-base w-5 text-center text-cyan-400"></i>
           <span>Search &amp; Scrape</span>
         </a>
-        <a href="http://127.0.0.1:5000/dashboard" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+        <a href="http://127.0.0.1:5000/dashboard" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none">
           <i class="fa-solid fa-chart-line text-base w-5 text-center text-blue-400"></i>
           <span>Analytics Dashboard</span>
         </a>
-        <a href="http://127.0.0.1:5000/jobs" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+        <a href="http://127.0.0.1:5000/jobs" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none">
           <i class="fa-solid fa-briefcase text-base w-5 text-center text-purple-400"></i>
           <span>Job Listings</span>
         </a>
-        <a href="http://127.0.0.1:5000/analytics" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+        <a href="http://127.0.0.1:5000/analytics" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none">
           <i class="fa-solid fa-chart-pie text-base w-5 text-center text-amber-400"></i>
           <span>Deep-Dive Insights</span>
         </a>
-        <a href="http://127.0.0.1:5000/database" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+        <a href="http://127.0.0.1:5000/database" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none">
           <i class="fa-solid fa-database text-base w-5 text-center text-emerald-400"></i>
           <span>Database Admin</span>
         </a>
@@ -619,9 +740,9 @@
         </svg>
         <span>Scrape Live Jobs</span>
       </a>
-      <div class="flex items-center justify-between px-2 text-xs opacity-70">
-        <span>SQLite Database</span>
-        <span class="text-emerald-400 font-semibold flex items-center gap-1.5">
+      <div class="flex items-center justify-between px-2 text-xs">
+        <span class="mobile-drawer-footer-text">SQLite Database</span>
+        <span class="mobile-drawer-status-online flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Online
         </span>
       </div>

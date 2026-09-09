@@ -195,39 +195,39 @@
                         <span class="font-extrabold text-lg tracking-tight leading-none">
                             <span style="color: #f97316;">Naukri</span><span class="text-sky-500">Analyzer</span>
                         </span>
-                        <span class="text-[9px] font-extrabold tracking-wider uppercase text-sky-400 mt-0.5">
+                        <span class="mobile-drawer-brand-sub text-[9px] font-extrabold tracking-wider uppercase mt-0.5">
                             IT Trends &bull; Analytics
                         </span>
                     </div>
                 </div>
-                <button id="mobileMenuCloseBtn" aria-label="Close navigation menu" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">
+                <button id="mobileMenuCloseBtn" aria-label="Close navigation menu" class="w-9 h-9 rounded-xl flex items-center justify-center transition-colors focus:outline-none cursor-pointer">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
             <!-- Drawer Navigation Links -->
             <nav class="mt-6 flex flex-col space-y-2">
-                <a href="{{ url_for('index') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'index' %}bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400 font-bold{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60{% endif %}">
+                <a href="{{ url_for('index') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'index' %}active{% endif %}">
                     <i class="fa-solid fa-house text-base w-5 text-center nav-icon-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="{{ url_for('search_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'search_page' %}bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400 font-bold{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60{% endif %}">
+                <a href="{{ url_for('search_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'search_page' %}active{% endif %}">
                     <i class="fa-solid fa-magnifying-glass text-base w-5 text-center nav-icon-search"></i>
                     <span>Search &amp; Scrape</span>
                 </a>
-                <a href="{{ url_for('dashboard') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'dashboard' %}bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400 font-bold{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60{% endif %}">
+                <a href="{{ url_for('dashboard') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'dashboard' %}active{% endif %}">
                     <i class="fa-solid fa-chart-line text-base w-5 text-center nav-icon-dashboard"></i>
                     <span>Analytics Dashboard</span>
                 </a>
-                <a href="{{ url_for('jobs_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'jobs_page' %}bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400 font-bold{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60{% endif %}">
+                <a href="{{ url_for('jobs_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'jobs_page' %}active{% endif %}">
                     <i class="fa-solid fa-briefcase text-base w-5 text-center nav-icon-jobs"></i>
                     <span>Job Listings</span>
                 </a>
-                <a href="{{ url_for('analytics_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'analytics_page' %}bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400 font-bold{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60{% endif %}">
+                <a href="{{ url_for('analytics_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'analytics_page' %}active{% endif %}">
                     <i class="fa-solid fa-chart-pie text-base w-5 text-center nav-icon-analytics"></i>
                     <span>Deep-Dive Insights</span>
                 </a>
-                <a href="{{ url_for('database_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'database_page' %}bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400 font-bold{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60{% endif %}">
+                <a href="{{ url_for('database_page') }}" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none {% if request.endpoint == 'database_page' %}active{% endif %}">
                     <i class="fa-solid fa-database text-base w-5 text-center nav-icon-database"></i>
                     <span>Database Admin</span>
                 </a>
@@ -242,9 +242,9 @@
                 </svg>
                 <span>Scrape Live Jobs</span>
             </a>
-            <div class="flex items-center justify-between px-2 text-xs opacity-70">
-                <span>SQLite Database</span>
-                <span class="text-emerald-400 font-semibold flex items-center gap-1.5">
+            <div class="flex items-center justify-between px-2 text-xs">
+                <span class="mobile-drawer-footer-text">SQLite Database</span>
+                <span class="mobile-drawer-status-online flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Online
                 </span>
             </div>
