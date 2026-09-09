@@ -511,7 +511,7 @@
       </nav>
 
       <!-- Right Action Controls -->
-      <div class="flex items-center space-x-3.5">
+      <div class="flex items-center space-x-2.5 sm:space-x-3.5">
         <!-- Single Tap Theme Toggle Button -->
         <button aria-label="Toggle light and dark theme" class="theme-toggle-btn w-10 h-10 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer" id="themeToggleBtn" title="Toggle Light / Dark mode" type="button">
           <!-- Moon icon for light mode (tap to switch to dark) -->
@@ -525,48 +525,98 @@
           </svg>
         </button>
 
-        <!-- Energetic Scrape Now CTA Button -->
-        <a href="http://127.0.0.1:5000/search" class="relative group overflow-hidden px-4 sm:px-5 py-2.5 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all flex items-center space-x-2 text-decoration-none">
+        <!-- Energetic Scrape Now CTA Button (Hidden on extra small mobile to keep top clean) -->
+        <a href="http://127.0.0.1:5000/search" class="hidden sm:inline-flex relative group overflow-hidden px-4 sm:px-5 py-2.5 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all items-center space-x-2 text-decoration-none">
           <div class="absolute inset-0 shimmer-edge opacity-60"></div>
           <svg class="w-4 h-4 text-amber-300 fill-amber-300" viewBox="0 0 24 24">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
           </svg>
           <span class="tracking-wide">Scrape Now</span>
         </a>
+
+        <!-- Mobile 3-Lines Hamburger Menu Button (Common in mobile apps) -->
+        <button id="mobileMenuBtn" aria-label="Open mobile navigation menu" class="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center border border-slate-300/60 dark:border-slate-700 bg-white/20 dark:bg-slate-800/60 text-slate-800 dark:text-white hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer" type="button">
+          <i class="fa-solid fa-bars text-lg text-sky-500 dark:text-sky-400"></i>
+        </button>
       </div>
 
     </div>
   </header>
   <!-- END: Desktop Navigation Bar -->
 
-  <!-- BEGIN: Mobile Bottom Floating Navigation Bar (Visible only on mobile screens < lg) -->
-  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 theme-navbar border-t border-slate-200/20 backdrop-blur-xl px-2 py-2 flex items-center justify-around shadow-2xl">
-    <a href="#" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink active text-decoration-none">
-      <i class="fa-solid fa-house text-base text-sky-400 mb-0.5"></i>
-      <span class="text-[10px]">Home</span>
-    </a>
-    <a href="http://127.0.0.1:5000/search" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
-      <i class="fa-solid fa-magnifying-glass text-base text-cyan-400 mb-0.5"></i>
-      <span class="text-[10px]">Search</span>
-    </a>
-    <a href="http://127.0.0.1:5000/dashboard" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
-      <i class="fa-solid fa-chart-line text-base text-blue-400 mb-0.5"></i>
-      <span class="text-[10px]">Dashboard</span>
-    </a>
-    <a href="http://127.0.0.1:5000/jobs" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
-      <i class="fa-solid fa-briefcase text-base text-purple-400 mb-0.5"></i>
-      <span class="text-[10px]">Jobs</span>
-    </a>
-    <a href="http://127.0.0.1:5000/analytics" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
-      <i class="fa-solid fa-chart-pie text-base text-amber-400 mb-0.5"></i>
-      <span class="text-[10px]">Analytics</span>
-    </a>
-    <a href="http://127.0.0.1:5000/database" class="flex flex-col items-center justify-center p-1.5 rounded-xl text-xs font-semibold theme-navlink text-decoration-none">
-      <i class="fa-solid fa-database text-base text-emerald-400 mb-0.5"></i>
-      <span class="text-[10px]">Database</span>
-    </a>
-  </nav>
-  <!-- END: Mobile Bottom Floating Navigation Bar -->
+  <!-- BEGIN: Mobile Slide-Out Navigation Drawer -->
+  <!-- Backdrop Overlay -->
+  <div id="mobileMenuBackdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0 pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Slide-Out Sidebar Drawer -->
+  <div id="mobileMenuDrawer" class="fixed top-0 right-0 bottom-0 w-[290px] sm:w-[320px] max-w-[85vw] bg-white dark:bg-[#0b162c] text-slate-800 dark:text-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-6 border-l border-slate-200 dark:border-slate-800" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div>
+      <!-- Drawer Top Bar with Brand & Close Button -->
+      <div class="flex items-center justify-between pb-5 border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-700 p-0.5 shadow flex items-center justify-center">
+            <div class="w-full h-full bg-[#005ea6] rounded-[8px] flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M3 3v18h18"></path>
+                <path d="m19 9-5 5-4-4-3 3"></path>
+              </svg>
+            </div>
+          </div>
+          <span class="font-extrabold text-lg tracking-tight">
+            <span style="color: #f97316;">Naukri</span><span class="text-sky-500">Analyzer</span>
+          </span>
+        </div>
+        <button id="mobileMenuCloseBtn" aria-label="Close navigation menu" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Navigation Links -->
+      <nav class="mt-6 flex flex-col space-y-2">
+        <a href="#" class="mobile-nav-link active flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-400">
+          <i class="fa-solid fa-house text-base w-5 text-center text-sky-400"></i>
+          <span>Home</span>
+        </a>
+        <a href="http://127.0.0.1:5000/search" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+          <i class="fa-solid fa-magnifying-glass text-base w-5 text-center text-cyan-400"></i>
+          <span>Search &amp; Scrape</span>
+        </a>
+        <a href="http://127.0.0.1:5000/dashboard" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+          <i class="fa-solid fa-chart-line text-base w-5 text-center text-blue-400"></i>
+          <span>Analytics Dashboard</span>
+        </a>
+        <a href="http://127.0.0.1:5000/jobs" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+          <i class="fa-solid fa-briefcase text-base w-5 text-center text-purple-400"></i>
+          <span>Job Listings</span>
+        </a>
+        <a href="http://127.0.0.1:5000/analytics" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+          <i class="fa-solid fa-chart-pie text-base w-5 text-center text-amber-400"></i>
+          <span>Deep-Dive Insights</span>
+        </a>
+        <a href="http://127.0.0.1:5000/database" class="mobile-nav-link flex items-center space-x-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-decoration-none text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+          <i class="fa-solid fa-database text-base w-5 text-center text-emerald-400"></i>
+          <span>Database Admin</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Drawer Footer Actions -->
+    <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col space-y-3">
+      <a href="http://127.0.0.1:5000/search" class="w-full py-3 px-4 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-sm shadow-lg shadow-blue-900/30 active:scale-95 transition-all flex items-center justify-center space-x-2 text-decoration-none">
+        <svg class="w-4 h-4 text-amber-300 fill-amber-300" viewBox="0 0 24 24">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+        </svg>
+        <span>Scrape Live Jobs</span>
+      </a>
+      <div class="flex items-center justify-between px-2 text-xs opacity-70">
+        <span>SQLite Database</span>
+        <span class="text-emerald-400 font-semibold flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Online
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- END: Mobile Slide-Out Navigation Drawer -->
 
   <!-- BEGIN: Desktop Two-Column Hero & Snapshot Section -->
   <main class="relative z-20 flex flex-col justify-center min-h-[calc(100vh-5rem)] py-12 lg:py-16">
@@ -1175,6 +1225,54 @@
           applyTheme(nextTheme);
         });
       }
+
+      // Mobile Hamburger Drawer handlers
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenuCloseBtn = document.getElementById('mobileMenuCloseBtn');
+      const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+      const mobileMenuDrawer = document.getElementById('mobileMenuDrawer');
+
+      function openMobileMenu() {
+        if (mobileMenuBackdrop && mobileMenuDrawer) {
+          mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+          mobileMenuBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+          mobileMenuDrawer.classList.remove('translate-x-full');
+          mobileMenuDrawer.classList.add('translate-x-0');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeMobileMenu() {
+        if (mobileMenuBackdrop && mobileMenuDrawer) {
+          mobileMenuBackdrop.classList.remove('opacity-100', 'pointer-events-auto');
+          mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
+          mobileMenuDrawer.classList.remove('translate-x-0');
+          mobileMenuDrawer.classList.add('translate-x-full');
+          document.body.style.overflow = '';
+        }
+      }
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openMobileMenu();
+        });
+      }
+      if (mobileMenuCloseBtn) {
+        mobileMenuCloseBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeMobileMenu();
+        });
+      }
+      if (mobileMenuBackdrop) {
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+      }
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileMenu();
+      });
     });
   </script>
   <!-- END: Interactive Theme Toggle Script -->
