@@ -1209,4 +1209,58 @@ body.theme-dark .field-chip.active,
   box-shadow: 0 4px 14px rgba(0, 132, 255, 0.4);
 }
 
+/* ==========================================================================
+   Curved Pill Search Group (Matches "Find Jobs" Hero Search)
+   ========================================================================== */
+.curved-search-group {
+  border-radius: 50px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04) !important;
+  overflow: hidden !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.curved-search-group:focus-within {
+  border-color: #0062cc !important;
+  box-shadow: 0 0 0 3.5px rgba(0, 98, 204, 0.18) !important;
+}
+
+.curved-search-group .input-group-text,
+.curved-search-group .form-control,
+.curved-search-group .btn {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.curved-search-group .form-control {
+  font-size: 0.9rem !important;
+  color: #0f172a !important;
+  padding: 0.5rem 0.6rem !important;
+}
+
+.curved-search-group .form-control:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.theme-dark .curved-search-group,
+[data-bs-theme="dark"] .curved-search-group {
+  background-color: #14243e !important;
+  border: 1.5px solid #264678 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.theme-dark .curved-search-group:focus-within,
+[data-bs-theme="dark"] .curved-search-group:focus-within {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 3.5px rgba(56, 189, 248, 0.22) !important;
+}
+
+body.theme-dark .curved-search-group .form-control,
+[data-bs-theme="dark"] .curved-search-group .form-control {
+  color: #f8fafc !important;
+}
+
+
 

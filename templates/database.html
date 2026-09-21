@@ -70,24 +70,27 @@
         </div>
     </div>
 
-    <!-- Instant Search, Field Filter Chips & Table Card -->
+    <!-- Instant Search, Role Filter Chips & Table Card -->
     <div class="card card-naukri shadow-sm mb-4">
         <div class="card-header-naukri flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 p-3">
             <div class="w-100" style="max-width: 500px;">
-                <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="d-flex justify-content-between align-items-center mb-1.5">
                     <label class="form-label small text-muted fw-bold mb-0">
-                        <i class="fa-solid fa-magnifying-glass me-1"></i> Filter by Your Field / Role / Skill:
+                        <i class="fa-solid fa-magnifying-glass me-1 text-primary"></i> Filter by Your Role / Skill:
                     </label>
-                    <span id="matchCounterBadge" class="badge bg-primary text-white rounded-pill px-2 py-0.5" style="font-size: 0.75rem;">
+                    <span id="matchCounterBadge" class="badge bg-primary text-white rounded-pill px-2.5 py-0.5" style="font-size: 0.75rem;">
                         Showing {{ jobs|length }} of {{ jobs|length }}
                     </span>
                 </div>
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text bg-light"><i class="fa-solid fa-briefcase text-muted"></i></span>
-                    <input type="text" class="form-control" id="clientTableSearch" placeholder="Type your field (e.g. Data Scientist, Python, DevOps, Cloud)...">
-                    <button class="btn btn-outline-secondary btn-sm" type="button" id="clearSearchBtn" onclick="clearTableSearch()" title="Clear filter" style="display: none;">
+                <div class="input-group input-group-sm curved-search-group">
+                    <span class="input-group-text ps-3 text-muted"><i class="fa-solid fa-briefcase text-primary"></i></span>
+                    <input type="text" class="form-control" id="clientTableSearch" placeholder="Type your role (e.g. Data Scientist, Python, DevOps, Full Stack)...">
+                    <button class="btn btn-sm pe-2 text-muted" type="button" id="clearSearchBtn" onclick="clearTableSearch()" title="Clear filter" style="display: none;">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
+                    <span class="input-group-text pe-3 text-muted">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
                 </div>
             </div>
             
@@ -96,10 +99,10 @@
             </div>
         </div>
 
-        <!-- Field / Domain Quick Filter Chips -->
+        <!-- Role Quick Filter Chips -->
         <div class="px-3 py-2 border-bottom d-flex flex-wrap gap-1.5 align-items-center bg-light-subtle">
-            <span class="small fw-bold text-muted me-1">Popular Fields:</span>
-            <button type="button" class="field-chip active" onclick="filterByField('')">All Fields</button>
+            <span class="small fw-bold text-muted me-1">Popular Roles:</span>
+            <button type="button" class="field-chip active" onclick="filterByField('')">All Roles</button>
             <button type="button" class="field-chip" onclick="filterByField('Software Engineer')">Software Engineer</button>
             <button type="button" class="field-chip" onclick="filterByField('Full Stack')">Full Stack</button>
             <button type="button" class="field-chip" onclick="filterByField('Data')">Data Science / ML</button>
@@ -162,7 +165,7 @@
                         <td colspan="7" class="text-center py-5">
                             <div class="text-muted mb-2"><i class="fa-solid fa-magnifying-glass fa-2x opacity-50"></i></div>
                             <h6 class="fw-bold mb-1">No Matching Jobs Found</h6>
-                            <p class="text-muted small mb-3">No database records match your active search query or field filter.</p>
+                            <p class="text-muted small mb-3">No database records match your active search query or role filter.</p>
                             <button class="btn btn-outline-primary btn-sm" onclick="clearTableSearch()">
                                 <i class="fa-solid fa-rotate-left me-1"></i> Clear Filter &amp; Show All
                             </button>

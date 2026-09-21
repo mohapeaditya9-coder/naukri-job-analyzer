@@ -228,9 +228,10 @@ function filterByField(field) {
 
     // Update active class on chips
     document.querySelectorAll('.field-chip').forEach(chip => {
-        if (!field && chip.textContent.trim() === 'All Fields') {
+        const text = chip.textContent.trim();
+        if (!field && (text === 'All Roles' || text === 'All Fields')) {
             chip.classList.add('active');
-        } else if (field && chip.textContent.toLowerCase().includes(term)) {
+        } else if (field && text.toLowerCase().includes(term)) {
             chip.classList.add('active');
         } else {
             chip.classList.remove('active');
@@ -265,10 +266,10 @@ function applyFilter(term) {
     if (badge) {
         if (!term) {
             badge.innerText = `Showing ${totalCount} of ${totalCount}`;
-            badge.className = 'badge bg-primary text-white rounded-pill px-2 py-0.5';
+            badge.className = 'badge bg-primary text-white rounded-pill px-2.5 py-0.5';
         } else {
             badge.innerText = `Showing ${visibleCount} of ${totalCount}`;
-            badge.className = visibleCount > 0 ? 'badge bg-success text-white rounded-pill px-2 py-0.5' : 'badge bg-danger text-white rounded-pill px-2 py-0.5';
+            badge.className = visibleCount > 0 ? 'badge bg-success text-white rounded-pill px-2.5 py-0.5' : 'badge bg-danger text-white rounded-pill px-2.5 py-0.5';
         }
     }
 
@@ -308,9 +309,10 @@ function initFilterHandlers() {
             
             // Remove active from predefined chips if typing custom
             document.querySelectorAll('.field-chip').forEach(chip => {
-                if (!term && chip.textContent.trim() === 'All Fields') {
+                const text = chip.textContent.trim();
+                if (!term && (text === 'All Roles' || text === 'All Fields')) {
                     chip.classList.add('active');
-                } else if (term && chip.textContent.toLowerCase().includes(term)) {
+                } else if (term && text.toLowerCase().includes(term)) {
                     chip.classList.add('active');
                 } else {
                     chip.classList.remove('active');
