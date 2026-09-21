@@ -155,6 +155,91 @@ class NaukriAppTestCase(unittest.TestCase):
         res = self.client.delete(f'/api/jobs/{job_id}')
         self.assertEqual(res.status_code, 200)
 
+    def test_07_database_clear_add_refresh_lifecycle(self):
+        """Rigorous test verifying clear, add, edit, delete, and re-seed lifecycle with stats refresh."""
+        # 1. Clear database
+        res = self.client.post('/api/database/clear')
+        self.assertEqual(res.status_code, 200)
+        data = json.loads(res.data)
+        self.assertTrue(data['success'])
+        
+        # Verify 0 records in database
+        stats = database.get_database_stats()
+        self.assertEqual(stats['total_jobs'], 0)
+
+        # Verify pages still render with empty database without crashing
+        res = self.client.get('/database')
+        self.assertEqual(res.status_code, 200)
+        res = self.client.get('/dashboard')
+        self.assertEqual(res.status_code, 200)
+        res = self.client.get('/jobs')
+        self.assertEqual(res.status_code, 200)
+
+        # 2. Add job 1 via /api/jobs
+        res = self.client.post('/api/jobs', json={
+            'job_title': 'Lifecycle SDE-1',
+            'company': 'Alpha Tech',
+            'location': 'Bengaluru',
+            'salary': '14-22 Lacs PA',
+            'experience': '1-3 Yrs',
+            'skills': 'Python, SQL',
+            'job_type': 'Hybrid'
+        })
+        self.assertEqual(res.status_code, 200)
+        job1_id = json.loads(res.data)['id']
+
+        # Add job 2 via /api/jobs/add
+        res = self.client.post('/api/jobs/add', json={
+            'job_title': 'Lifecycle SDE-2',
+            'company': 'Beta Corp',
+            'location': 'Hyderabad',
+            'salary': '25-35 Lacs PA',
+            'experience': '3-6 Yrs',
+            'skills': 'Java, AWS',
+            'job_type': 'Remote'
+        })
+        self.assertEqual(res.status_code, 200)
+        job2_id = json.loads(res.data)['id']
+
+        # Verify stats refreshed to 2 jobs
+        stats = database.get_database_stats()
+        self.assertEqual(stats['total_jobs'], 2)
+        self.assertEqual(stats['total_companies'], 2)
+
+        # 3. Edit job 1 via /api/jobs/edit/<id>
+        res = self.client.put(f'/api/jobs/edit/{job1_id}', json={
+            'job_title': 'Promoted Senior SDE-1',
+            'company': 'Alpha Tech',
+            'location': 'Bengaluru',
+            'salary': '18-28 Lacs PA',
+            'experience': '2-4 Yrs',
+            'skills': 'Python, Django, Docker',
+            'job_type': 'Hybrid'
+        })
+        self.assertEqual(res.status_code, 200)
+        job1 = database.get_job_by_id(job1_id)
+        self.assertEqual(job1['job_title'], 'Promoted Senior SDE-1')
+        self.assertEqual(job1['avg_salary'], 23.0)
+
+        # 4. Delete job 2 via /api/jobs/delete/<id>
+        res = self.client.post(f'/api/jobs/delete/{job2_id}')
+        self.assertEqual(res.status_code, 200)
+        self.assertIsNone(database.get_job_by_id(job2_id))
+        self.assertEqual(database.get_database_stats()['total_jobs'], 1)
+
+        # 5. Re-seed database
+        res = self.client.post('/api/database/seed')
+        self.assertEqual(res.status_code, 200)
+        stats = database.get_database_stats()
+        self.assertGreaterEqual(stats['total_jobs'], 30)
+
+        # 6. Verify live stats API returns updated refreshed metrics
+        res = self.client.get('/api/stats')
+        self.assertEqual(res.status_code, 200)
+        kpis = json.loads(res.data)
+        self.assertGreater(kpis['total_jobs'], 0)
+        self.assertGreater(kpis['avg_salary'], 0)
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(NaukriAppTestCase)
     runner = unittest.TextTestRunner(verbosity=2)

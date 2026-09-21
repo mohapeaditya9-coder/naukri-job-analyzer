@@ -21,7 +21,10 @@
             <button class="btn btn-primary-naukri btn-sm" data-bs-toggle="modal" data-bs-target="#addJobModal">
                 <i class="fa-solid fa-plus"></i> Add New Job Record
             </button>
-            <button class="btn btn-secondary-naukri btn-sm" onclick="window.location.reload()">
+            <button class="btn btn-outline-primary btn-sm seed-btn" onclick="seedSampleData()" title="Re-populate database with realistic IT job vacancies">
+                <i class="fa-solid fa-database"></i> Re-seed Sample Data
+            </button>
+            <button class="btn btn-secondary-naukri btn-sm" id="refreshDbBtn" onclick="refreshDatabaseView()">
                 <i class="fa-solid fa-rotate"></i> Refresh
             </button>
             <button class="btn btn-outline-danger btn-sm" onclick="clearAllJobs()">
@@ -134,7 +137,7 @@
         <div class="text-center p-5">
             <h5 class="fw-bold">Database is Empty</h5>
             <p class="text-muted small mb-3">No job listings found in the SQLite database.</p>
-            <button class="btn btn-primary-naukri btn-sm" id="seedSampleBtn">
+            <button class="btn btn-primary-naukri btn-sm" id="seedSampleBtn" onclick="seedSampleData()">
                 <i class="fa-solid fa-database"></i> Seed Realistic Sample Dataset
             </button>
         </div>

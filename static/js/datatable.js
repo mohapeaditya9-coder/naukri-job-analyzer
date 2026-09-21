@@ -105,7 +105,16 @@ async function deleteJob(jobId, jobTitle) {
             // Remove table row smoothly or reload
             const row = document.getElementById(`job-row-${jobId}`);
             if (row) {
-                row.remove();
+                row.style.transition = 'opacity 0.3s, transform 0.3s';
+                row.style.opacity = '0';
+                row.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    row.remove();
+                    // If no rows left, reload to show empty state
+                    if (document.querySelectorAll('.filterable-row').length === 0) {
+                        window.location.reload();
+                    }
+                }, 300);
             } else {
                 window.location.reload();
             }
@@ -134,6 +143,41 @@ async function clearAllJobs() {
     } catch (err) {
         alert('Network error: ' + err.message);
     }
+}
+
+// Re-seed Sample Dataset
+async function seedSampleData() {
+    try {
+        const seedBtns = document.querySelectorAll('#seedSampleBtn, .seed-btn');
+        seedBtns.forEach(b => {
+            b.disabled = true;
+            b.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Seeding...';
+        });
+
+        const res = await fetch('/api/database/seed', { method: 'POST' });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            window.location.reload();
+        } else {
+            alert('Failed to seed sample data: ' + (data.message || 'Error'));
+            seedBtns.forEach(b => {
+                b.disabled = false;
+                b.innerHTML = '<i class="fa-solid fa-database me-1"></i> Re-seed Sample Data';
+            });
+        }
+    } catch (err) {
+        alert('Network error: ' + err.message);
+        window.location.reload();
+    }
+}
+
+// Refresh Database View
+function refreshDatabaseView() {
+    const refreshBtn = document.getElementById('refreshDbBtn');
+    if (refreshBtn) {
+        refreshBtn.innerHTML = '<i class="fa-solid fa-rotate fa-spin"></i> Refreshing...';
+    }
+    window.location.reload();
 }
 
 // Client-side instant table search filter

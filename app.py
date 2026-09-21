@@ -183,6 +183,7 @@ def api_get_jobs():
     return jsonify({'success': True, 'count': len(jobs), 'data': jobs})
 
 @app.route('/api/jobs', methods=['POST'])
+@app.route('/api/jobs/add', methods=['POST'])
 def api_add_job():
     """API endpoint to manually add a new job listing."""
     data = request.get_json() or request.form.to_dict()
@@ -220,7 +221,8 @@ def api_get_job(job_id):
         return jsonify({'success': False, 'message': 'Job not found'}), 404
     return jsonify({'success': True, 'data': job})
 
-@app.route('/api/jobs/<int:job_id>', methods=['PUT', 'POST'])
+@app.route('/api/jobs/<int:job_id>', methods=['PUT', 'POST', 'PATCH'])
+@app.route('/api/jobs/edit/<int:job_id>', methods=['PUT', 'POST', 'PATCH'])
 def api_update_job(job_id):
     """API endpoint to update existing job record."""
     data = request.get_json() or request.form.to_dict()
@@ -250,7 +252,8 @@ def api_update_job(job_id):
         return jsonify({'success': True, 'message': 'Job record updated successfully!'})
     return jsonify({'success': False, 'message': 'Job not found or update failed.'}), 400
 
-@app.route('/api/jobs/<int:job_id>', methods=['DELETE'])
+@app.route('/api/jobs/<int:job_id>', methods=['DELETE', 'POST'])
+@app.route('/api/jobs/delete/<int:job_id>', methods=['DELETE', 'POST'])
 def api_delete_job(job_id):
     """API endpoint to delete job record."""
     deleted = database.delete_job(job_id)
