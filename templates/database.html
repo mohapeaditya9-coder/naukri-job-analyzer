@@ -70,16 +70,35 @@
         </div>
     </div>
 
-    <!-- Instant Search & Table Card -->
-    <div class="card card-naukri shadow-sm">
-        <div class="card-header-naukri">
-            <div class="input-group input-group-sm" style="max-width: 350px;">
-                <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                <input type="text" class="form-control" id="clientTableSearch" placeholder="Type to filter records instantly...">
+    <!-- Instant Search, Field Filter Chips & Table Card -->
+    <div class="card card-naukri shadow-sm mb-4">
+        <div class="card-header-naukri flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 p-3">
+            <div class="w-100" style="max-width: 450px;">
+                <label class="form-label small text-muted fw-bold mb-1">
+                    <i class="fa-solid fa-magnifying-glass me-1"></i> Filter by Your Field / Role / Skill:
+                </label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light"><i class="fa-solid fa-briefcase text-muted"></i></span>
+                    <input type="text" class="form-control" id="clientTableSearch" placeholder="Type your field (e.g. Data Scientist, Python, DevOps, Cloud)...">
+                </div>
             </div>
-            <div class="small text-muted">
+            
+            <div class="small text-muted align-self-md-center">
                 Last modified: <strong>{{ stats.last_updated }}</strong>
             </div>
+        </div>
+
+        <!-- Field / Domain Quick Filter Chips -->
+        <div class="px-3 py-2 border-bottom d-flex flex-wrap gap-1.5 align-items-center bg-light-subtle">
+            <span class="small fw-bold text-muted me-1">Popular Fields:</span>
+            <button type="button" class="field-chip active" onclick="filterByField('')">All Fields</button>
+            <button type="button" class="field-chip" onclick="filterByField('Software Engineer')">Software Engineer</button>
+            <button type="button" class="field-chip" onclick="filterByField('Full Stack')">Full Stack</button>
+            <button type="button" class="field-chip" onclick="filterByField('Data')">Data Science / ML</button>
+            <button type="button" class="field-chip" onclick="filterByField('DevOps')">DevOps & Cloud</button>
+            <button type="button" class="field-chip" onclick="filterByField('Frontend')">Frontend / React</button>
+            <button type="button" class="field-chip" onclick="filterByField('Backend')">Backend / Python / Java</button>
+            <button type="button" class="field-chip" onclick="filterByField('QA')">QA & Automation</button>
         </div>
 
         {% if jobs %}
@@ -98,7 +117,7 @@
                 </thead>
                 <tbody>
                     {% for job in jobs %}
-                    <tr class="filterable-row" id="job-row-{{ job.id }}">
+                    <tr class="filterable-row" id="job-row-{{ job.id }}" data-role="{{ job.job_title }}" data-skills="{{ job.skills }}" data-company="{{ job.company }}" data-location="{{ job.location }}">
                         <td class="text-muted fw-bold">#{{ job.id }}</td>
                         <td>
                             <div class="fw-bold text-primary">{{ job.job_title }}</div>
@@ -146,34 +165,34 @@
 </div>
 
 <!-- ==========================================================================
-     Add Job Modal
+     Add Job Modal (Scrollable, High-Contrast & Fixed Layout)
      ========================================================================== -->
 <div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content card-naukri border-0 shadow-lg">
-            <div class="modal-header border-bottom">
-                <h5 class="modal-title fw-bold" id="addJobModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addJobModalLabel">
                     <i class="fa-solid fa-plus-circle text-primary me-2"></i>Add New Job Record
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="addJobForm">
-                <div class="modal-body p-4">
+                <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Job Title <span class="text-danger">*</span></label>
+                            <label class="form-label">Job Title / Role <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="job_title" required placeholder="e.g. Lead Full Stack Engineer">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Company Name <span class="text-danger">*</span></label>
+                            <label class="form-label">Company Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="company" required placeholder="e.g. Google India">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Location</label>
+                            <label class="form-label">Location</label>
                             <input type="text" class="form-control" name="location" value="Bengaluru" placeholder="e.g. Bengaluru">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Work Mode</label>
+                            <label class="form-label">Work Mode</label>
                             <select class="form-select" name="job_type">
                                 <option value="On-site">On-site</option>
                                 <option value="Hybrid" selected>Hybrid</option>
@@ -181,31 +200,31 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Salary Range (e.g. "15-25 Lacs PA")</label>
+                            <label class="form-label">Salary Range (e.g. "18-32 Lacs PA")</label>
                             <input type="text" class="form-control" name="salary" placeholder="e.g. 18-32 Lacs PA">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Experience (e.g. "3-6 Yrs")</label>
+                            <label class="form-label">Experience (e.g. "3-6 Yrs")</label>
                             <input type="text" class="form-control" name="experience" placeholder="e.g. 3-6 Yrs">
                         </div>
                         <div class="col-12">
-                            <label class="form-label small fw-semibold">Skills (Comma-separated)</label>
+                            <label class="form-label">Required Skills (Comma-separated)</label>
                             <input type="text" class="form-control" name="skills" placeholder="e.g. Python, Django, AWS, Docker, PostgreSQL">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Posted Date</label>
+                            <label class="form-label">Posted Date</label>
                             <input type="text" class="form-control" name="posted_date" value="Today">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Job Apply Link</label>
+                            <label class="form-label">Job Apply Link</label>
                             <input type="url" class="form-control" name="job_link" value="https://www.naukri.com">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer border-top">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary-naukri btn-sm">
-                        <i class="fa-solid fa-floppy-disk"></i> Save Record
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Save Record
                     </button>
                 </div>
             </form>
@@ -214,35 +233,35 @@
 </div>
 
 <!-- ==========================================================================
-     Edit Job Modal
+     Edit Job Modal (Scrollable, High-Contrast & Fixed Layout)
      ========================================================================== -->
 <div class="modal fade" id="editJobModal" tabindex="-1" aria-labelledby="editJobModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content card-naukri border-0 shadow-lg">
-            <div class="modal-header border-bottom">
-                <h5 class="modal-title fw-bold" id="editJobModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editJobModalLabel">
                     <i class="fa-solid fa-pen-to-square text-primary me-2"></i>Edit Job Record
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="editJobForm">
                 <input type="hidden" id="editJobId" name="id">
-                <div class="modal-body p-4">
+                <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Job Title <span class="text-danger">*</span></label>
+                            <label class="form-label">Job Title / Role <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="editJobTitle" name="job_title" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Company Name <span class="text-danger">*</span></label>
+                            <label class="form-label">Company Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="editCompany" name="company" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Location</label>
+                            <label class="form-label">Location</label>
                             <input type="text" class="form-control" id="editLocation" name="location">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Work Mode</label>
+                            <label class="form-label">Work Mode</label>
                             <select class="form-select" id="editJobType" name="job_type">
                                 <option value="On-site">On-site</option>
                                 <option value="Hybrid">Hybrid</option>
@@ -250,31 +269,31 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Salary Range</label>
+                            <label class="form-label">Salary Range</label>
                             <input type="text" class="form-control" id="editSalary" name="salary">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Experience</label>
+                            <label class="form-label">Experience</label>
                             <input type="text" class="form-control" id="editExperience" name="experience">
                         </div>
                         <div class="col-12">
-                            <label class="form-label small fw-semibold">Skills</label>
+                            <label class="form-label">Required Skills</label>
                             <input type="text" class="form-control" id="editSkills" name="skills">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Posted Date</label>
+                            <label class="form-label">Posted Date</label>
                             <input type="text" class="form-control" id="editPostedDate" name="posted_date">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Job Apply Link</label>
+                            <label class="form-label">Job Apply Link</label>
                             <input type="url" class="form-control" id="editJobLink" name="job_link">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer border-top">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary-naukri btn-sm">
-                        <i class="fa-solid fa-check"></i> Update Record
+                        <i class="fa-solid fa-check me-1"></i> Update Record
                     </button>
                 </div>
             </form>

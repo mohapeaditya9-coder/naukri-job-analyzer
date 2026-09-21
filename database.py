@@ -117,9 +117,10 @@ def get_all_jobs(filters=None, db_path=DB_PATH):
             term = f"%{filters['search']}%".lower()
             query += ' AND (LOWER(job_title) LIKE ? OR LOWER(company) LIKE ? OR LOWER(skills) LIKE ? OR LOWER(location) LIKE ?)'
             params.extend([term, term, term, term])
-        if filters.get('role'):
-            query += ' AND LOWER(job_title) LIKE ?'
-            params.append(f"%{filters['role'].lower()}%")
+        if filters.get('role') or filters.get('field'):
+            role_term = f"%{(filters.get('role') or filters.get('field')).lower().strip()}%"
+            query += ' AND (LOWER(job_title) LIKE ? OR LOWER(skills) LIKE ?)'
+            params.extend([role_term, role_term])
         if filters.get('location'):
             query += ' AND LOWER(location) LIKE ?'
             params.append(f"%{filters['location'].lower()}%")

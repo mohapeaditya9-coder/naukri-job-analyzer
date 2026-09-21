@@ -829,8 +829,28 @@
             Scrape IT vacancies directly from Naukri.com, compute compensation benchmarks with Pandas &amp; NumPy, and visualize hiring dynamics across India's top tech hubs.
           </p>
 
+          <!-- Interactive Field / Domain Search Bar -->
+          <form action="http://127.0.0.1:5000/jobs" method="GET" class="w-full max-w-xl pt-1">
+            <div class="relative flex items-center shadow-2xl rounded-2xl overflow-hidden p-1.5 bg-white/20 dark:bg-slate-900/60 backdrop-blur-md border border-white/30 dark:border-slate-700">
+              <i class="fa-solid fa-briefcase text-sky-400 pl-3.5 pr-2 text-base"></i>
+              <input type="text" name="search" placeholder="Enter your field (e.g. Data Scientist, Python, DevOps, Full Stack)..." class="w-full bg-transparent border-0 text-slate-800 dark:text-white placeholder:text-slate-400 focus:ring-0 text-sm font-semibold py-2.5 px-2 outline-none">
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center space-x-1.5 flex-shrink-0 cursor-pointer">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Find Jobs</span>
+              </button>
+            </div>
+            <!-- Quick Field Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-2.5 items-center text-xs">
+              <span class="text-sky-200 font-bold">Trending Fields:</span>
+              <a href="http://127.0.0.1:5000/jobs?role=Software+Engineer" class="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/25 text-sky-200 hover:text-white transition-all text-decoration-none border border-white/10">SDE / Software</a>
+              <a href="http://127.0.0.1:5000/jobs?role=Data" class="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/25 text-emerald-200 hover:text-white transition-all text-decoration-none border border-white/10">Data Science</a>
+              <a href="http://127.0.0.1:5000/jobs?role=Full+Stack" class="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/25 text-amber-200 hover:text-white transition-all text-decoration-none border border-white/10">Full Stack</a>
+              <a href="http://127.0.0.1:5000/jobs?role=DevOps" class="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/25 text-purple-200 hover:text-white transition-all text-decoration-none border border-white/10">DevOps &amp; Cloud</a>
+            </div>
+          </form>
+
           <!-- Desktop CTA Row -->
-          <div class="pt-3 flex flex-wrap items-center gap-4 w-full">
+          <div class="pt-2 flex flex-wrap items-center gap-4 w-full">
             <!-- Solid Primary: Start Analysis -->
             <a class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-white hover:bg-sky-50 text-[#0062cc] font-bold text-base shadow-xl shadow-blue-950/20 active:scale-95 transition-all text-decoration-none" href="http://127.0.0.1:5000/search">
               <svg class="w-4 h-4 text-[#0062cc] fill-[#0062cc]" viewBox="0 0 24 24">

@@ -180,16 +180,70 @@ function refreshDatabaseView() {
     window.location.reload();
 }
 
+// Filter table rows by clicked field chip or custom field query
+function filterByField(field) {
+    const term = (field || '').toLowerCase().trim();
+    const searchInput = document.getElementById('clientTableSearch');
+    if (searchInput) {
+        searchInput.value = field;
+    }
+
+    // Update active class on chips
+    document.querySelectorAll('.field-chip').forEach(chip => {
+        if (!field && chip.textContent.trim() === 'All Fields') {
+            chip.classList.add('active');
+        } else if (field && chip.textContent.toLowerCase().includes(term)) {
+            chip.classList.add('active');
+        } else {
+            chip.classList.remove('active');
+        }
+    });
+
+    const rows = document.querySelectorAll('.filterable-row');
+    let visibleCount = 0;
+    rows.forEach(row => {
+        const text = (
+            (row.getAttribute('data-role') || '') + ' ' +
+            (row.getAttribute('data-skills') || '') + ' ' +
+            (row.getAttribute('data-company') || '') + ' ' +
+            (row.getAttribute('data-location') || '') + ' ' +
+            row.innerText
+        ).toLowerCase();
+        
+        const match = !term || text.includes(term);
+        row.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+    });
+}
+
 // Client-side instant table search filter
 function initFilterHandlers() {
     const searchInput = document.getElementById('clientTableSearch');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase().trim();
+            
+            // Remove active from predefined chips if typing custom
+            document.querySelectorAll('.field-chip').forEach(chip => {
+                if (!term && chip.textContent.trim() === 'All Fields') {
+                    chip.classList.add('active');
+                } else if (term && chip.textContent.toLowerCase().includes(term)) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+
             const rows = document.querySelectorAll('.filterable-row');
             rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                row.style.display = text.includes(term) ? '' : 'none';
+                const text = (
+                    (row.getAttribute('data-role') || '') + ' ' +
+                    (row.getAttribute('data-skills') || '') + ' ' +
+                    (row.getAttribute('data-company') || '') + ' ' +
+                    (row.getAttribute('data-location') || '') + ' ' +
+                    row.innerText
+                ).toLowerCase();
+                row.style.display = (!term || text.includes(term)) ? '' : 'none';
             });
         });
     }

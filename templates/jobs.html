@@ -33,15 +33,15 @@
         </div>
     </div>
 
-    <!-- Filter Bar Card -->
+    <!-- Filter Bar Card with Field/Domain Search -->
     <div class="card card-naukri p-3 mb-4 shadow-sm">
         <form method="GET" action="{{ url_for('jobs_page') }}" id="jobsFilterForm">
             <div class="row g-2 align-items-center">
-                <!-- Search Input -->
+                <!-- Field / Role / Search Input -->
                 <div class="col-md-3">
                     <div class="input-group input-group-sm">
                         <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                        <input type="text" class="form-control" name="search" placeholder="Search title, company, skills..." value="{{ filters.search }}">
+                        <input type="text" class="form-control" name="search" placeholder="Enter your field, role, or skills (e.g. Data Scientist)..." value="{{ filters.search }}">
                     </div>
                 </div>
 
@@ -89,6 +89,19 @@
                         <i class="fa-solid fa-rotate-left"></i>
                     </a>
                 </div>
+            </div>
+
+            <!-- Quick Field & Domain Filter Chips -->
+            <div class="mt-3 pt-2 border-top d-flex flex-wrap gap-1.5 align-items-center">
+                <span class="small fw-bold text-muted me-1">Popular Fields:</span>
+                <a href="{{ url_for('jobs_page') }}" class="field-chip {% if not filters.role and not filters.search %}active{% endif %}">All Fields</a>
+                <a href="{{ url_for('jobs_page', role='Software Engineer') }}" class="field-chip {% if filters.role == 'Software Engineer' or 'Software' in filters.search %}active{% endif %}">Software Engineer</a>
+                <a href="{{ url_for('jobs_page', role='Full Stack') }}" class="field-chip {% if filters.role == 'Full Stack' or 'Full Stack' in filters.search %}active{% endif %}">Full Stack</a>
+                <a href="{{ url_for('jobs_page', role='Data') }}" class="field-chip {% if filters.role == 'Data' or 'Data' in filters.search %}active{% endif %}">Data Science / ML</a>
+                <a href="{{ url_for('jobs_page', role='DevOps') }}" class="field-chip {% if filters.role == 'DevOps' or 'DevOps' in filters.search %}active{% endif %}">DevOps & Cloud</a>
+                <a href="{{ url_for('jobs_page', role='Frontend') }}" class="field-chip {% if filters.role == 'Frontend' or 'Frontend' in filters.search %}active{% endif %}">Frontend / React</a>
+                <a href="{{ url_for('jobs_page', role='Backend') }}" class="field-chip {% if filters.role == 'Backend' or 'Backend' in filters.search %}active{% endif %}">Backend / Python / Java</a>
+                <a href="{{ url_for('jobs_page', role='QA') }}" class="field-chip {% if filters.role == 'QA' or 'QA' in filters.search %}active{% endif %}">QA & Testing</a>
             </div>
         </form>
     </div>
