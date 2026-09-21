@@ -37,11 +37,12 @@
     <div class="card card-naukri p-3 mb-4 shadow-sm">
         <form method="GET" action="{{ url_for('jobs_page') }}" id="jobsFilterForm">
             <div class="row g-2 align-items-center">
-                <!-- Field / Role / Search Input -->
+                <!-- Role Search Input (Curved Pill) -->
                 <div class="col-md-3">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                        <input type="text" class="form-control" name="search" placeholder="Enter your field, role, or skills (e.g. Data Scientist)..." value="{{ filters.search }}">
+                    <div class="input-group input-group-sm curved-search-group">
+                        <span class="input-group-text ps-3 text-muted"><i class="fa-solid fa-briefcase text-primary"></i></span>
+                        <input type="text" class="form-control" name="search" placeholder="Enter role or skills (e.g. SDE, Python)..." value="{{ filters.search }}">
+                        <span class="input-group-text pe-3 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
                     </div>
                 </div>
 

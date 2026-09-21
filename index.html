@@ -829,11 +829,15 @@
             Scrape IT vacancies directly from Naukri.com, compute compensation benchmarks with Pandas &amp; NumPy, and visualize hiring dynamics across India's top tech hubs.
           </p>
 
-          <!-- Interactive Role Search Bar (Compact Curved Pill) -->
+          <!-- Interactive Role Search Bar (Compact with Inside White Curved Entry Box) -->
           <form action="http://127.0.0.1:5000/jobs" method="GET" class="w-full max-w-lg pt-1">
-            <div class="relative flex items-center shadow-lg rounded-full overflow-hidden p-1 bg-white/20 dark:bg-slate-900/60 backdrop-blur-md border border-white/35 dark:border-slate-700 transition-all hover:border-white/50">
-              <i class="fa-solid fa-magnifying-glass text-sky-300 pl-3.5 pr-2 text-sm"></i>
-              <input type="text" name="search" placeholder="Enter role (e.g. SDE, Data Scientist, Full Stack)..." class="w-full bg-transparent border-0 text-slate-800 dark:text-white placeholder:text-blue-100 dark:placeholder:text-slate-400 focus:ring-0 text-xs sm:text-sm font-semibold py-1.5 px-2 outline-none">
+            <div class="relative flex items-center shadow-lg rounded-full p-1 bg-white/20 dark:bg-slate-900/60 backdrop-blur-md border border-white/35 dark:border-slate-700 transition-all hover:border-white/50">
+              <!-- Inside White Curved User Entry Box -->
+              <div class="flex items-center flex-1 bg-white dark:bg-slate-800 rounded-full px-3.5 py-1.5 shadow-sm border border-slate-200/60 dark:border-slate-700 mr-1.5">
+                <i class="fa-solid fa-briefcase text-sky-500 mr-2 text-xs flex-shrink-0"></i>
+                <input type="text" name="search" placeholder="Enter role (e.g. SDE, Data Scientist, Full Stack)..." class="w-full bg-transparent border-0 text-slate-800 dark:text-white placeholder:text-slate-400 focus:ring-0 text-xs sm:text-sm font-semibold p-0 outline-none">
+              </div>
+              <!-- Curved CTA Button -->
               <button type="submit" class="px-4 py-2 rounded-full bg-[#0062cc] hover:bg-[#0052ad] text-white font-bold text-xs shadow-md transition-all flex items-center space-x-1.5 flex-shrink-0 cursor-pointer">
                 <span>Find Jobs</span>
                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
