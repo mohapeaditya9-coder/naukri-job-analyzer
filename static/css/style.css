@@ -534,6 +534,12 @@ body.theme-dark .footer-link:hover {
   border-spacing: 0;
 }
 
+.table-naukri thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .table-naukri th {
   font-size: 0.8rem;
   font-weight: 700;
@@ -541,29 +547,38 @@ body.theme-dark .footer-link:hover {
   letter-spacing: 0.05em;
   padding: 0.85rem 1rem;
   border-top: 1px solid rgba(148, 163, 184, 0.2);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: 2px solid rgba(148, 163, 184, 0.3);
+  background-color: #f1f5f9;
+  color: #1e293b;
 }
 
 .table-naukri td {
-  padding: 1rem 1rem;
+  padding: 0.9rem 1rem;
   vertical-align: middle;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  border-bottom: 1px solid #e2e8f0;
   font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+.table-naukri tr:hover td {
+  background-color: #f8fafc;
 }
 
 body.theme-dark .table-naukri th {
-  background: #14243e;
-  color: #94a3b8;
-  border-color: rgba(56, 189, 248, 0.2);
+  background-color: #14243e !important;
+  color: #94a3b8 !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
 }
 
 body.theme-dark .table-naukri td {
-  color: #f1f5f9;
-  border-color: rgba(56, 189, 248, 0.15);
+  background-color: #0f1c32 !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(56, 189, 248, 0.15) !important;
 }
 
 body.theme-dark .table-naukri tr:hover td {
-  background: rgba(56, 189, 248, 0.08);
+  background-color: rgba(56, 189, 248, 0.08) !important;
 }
 
 .skill-tag {
@@ -654,6 +669,50 @@ body.theme-dark .skill-tag {
   border-color: #38bdf8;
   color: inherit;
   transform: translateY(-1px);
+}
+
+.btn-seed-naukri {
+  background-color: #059669;
+  border: 1px solid #10b981;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.55rem 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.btn-seed-naukri:hover {
+  background-color: #047857;
+  border-color: #059669;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.4);
+}
+
+.btn-danger-naukri {
+  background-color: #dc2626;
+  border: 1px solid #ef4444;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.55rem 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+.btn-danger-naukri:hover {
+  background-color: #b91c1c;
+  border-color: #dc2626;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
 }
 
 .console-box {

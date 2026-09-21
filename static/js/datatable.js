@@ -1,11 +1,12 @@
 /**
  * Database & Table Management Script
- * Handles CRUD modals (Add, Edit, Delete, Clear), live client filtering, and PDF generation.
+ * Handles CRUD modals (Add, Edit, Delete, Clear), live client filtering, match counters, and export.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initCrudHandlers();
     initFilterHandlers();
+    updateMatchCounter();
 });
 
 function initCrudHandlers() {
@@ -14,6 +15,13 @@ function initCrudHandlers() {
     if (addForm) {
         addForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = addForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.innerHTML : 'Save';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Saving...';
+            }
+
             const formData = new FormData(addForm);
             const payload = Object.fromEntries(formData.entries());
 
@@ -28,9 +36,17 @@ function initCrudHandlers() {
                     window.location.reload();
                 } else {
                     alert('Error adding job: ' + (data.message || 'Unknown error'));
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
                 }
             } catch (err) {
                 alert('Network error: ' + err.message);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
             }
         });
     }
@@ -41,6 +57,13 @@ function initCrudHandlers() {
         editForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const jobId = document.getElementById('editJobId').value;
+            const submitBtn = editForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.innerHTML : 'Update';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Updating...';
+            }
+
             const formData = new FormData(editForm);
             const payload = Object.fromEntries(formData.entries());
 
@@ -55,9 +78,17 @@ function initCrudHandlers() {
                     window.location.reload();
                 } else {
                     alert('Error updating job: ' + (data.message || 'Unknown error'));
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
                 }
             } catch (err) {
                 alert('Network error: ' + err.message);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
             }
         });
     }
@@ -85,8 +116,11 @@ async function openEditJobModal(jobId) {
         document.getElementById('editPostedDate').value = job.posted_date || '';
         document.getElementById('editJobLink').value = job.job_link || '';
 
-        const modal = new bootstrap.Modal(document.getElementById('editJobModal'));
-        modal.show();
+        const modalElem = document.getElementById('editJobModal');
+        if (modalElem) {
+            const modal = new bootstrap.Modal(modalElem);
+            modal.show();
+        }
     } catch (err) {
         alert('Failed to load job for editing: ' + err.message);
     }
@@ -94,7 +128,7 @@ async function openEditJobModal(jobId) {
 
 // Delete Single Job
 async function deleteJob(jobId, jobTitle) {
-    if (!confirm(`Are you sure you want to delete "${jobTitle}" (ID: ${jobId})?`)) {
+    if (!confirm(`Are you sure you want to delete "${jobTitle}" (ID: #${jobId})?`)) {
         return;
     }
 
@@ -102,7 +136,6 @@ async function deleteJob(jobId, jobTitle) {
         const res = await fetch(`/api/jobs/${jobId}`, { method: 'DELETE' });
         const data = await res.json();
         if (res.ok && data.success) {
-            // Remove table row smoothly or reload
             const row = document.getElementById(`job-row-${jobId}`);
             if (row) {
                 row.style.transition = 'opacity 0.3s, transform 0.3s';
@@ -110,7 +143,7 @@ async function deleteJob(jobId, jobTitle) {
                 row.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     row.remove();
-                    // If no rows left, reload to show empty state
+                    updateMatchCounter();
                     if (document.querySelectorAll('.filterable-row').length === 0) {
                         window.location.reload();
                     }
@@ -128,7 +161,7 @@ async function deleteJob(jobId, jobTitle) {
 
 // Clear Entire Database
 async function clearAllJobs() {
-    if (!confirm('WARNING: Are you sure you want to delete ALL jobs from the database? This cannot be undone.')) {
+    if (!confirm('WARNING: Are you sure you want to delete ALL jobs from the database? This action cannot be undone.')) {
         return;
     }
 
@@ -188,6 +221,11 @@ function filterByField(field) {
         searchInput.value = field;
     }
 
+    const clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) {
+        clearBtn.style.display = term ? 'inline-block' : 'none';
+    }
+
     // Update active class on chips
     document.querySelectorAll('.field-chip').forEach(chip => {
         if (!field && chip.textContent.trim() === 'All Fields') {
@@ -199,8 +237,15 @@ function filterByField(field) {
         }
     });
 
+    applyFilter(term);
+}
+
+// Apply text filter to all table rows and update counter & no-match banner
+function applyFilter(term) {
     const rows = document.querySelectorAll('.filterable-row');
     let visibleCount = 0;
+    const totalCount = rows.length;
+
     rows.forEach(row => {
         const text = (
             (row.getAttribute('data-role') || '') + ' ' +
@@ -214,6 +259,40 @@ function filterByField(field) {
         row.style.display = match ? '' : 'none';
         if (match) visibleCount++;
     });
+
+    // Update match counter badge
+    const badge = document.getElementById('matchCounterBadge');
+    if (badge) {
+        if (!term) {
+            badge.innerText = `Showing ${totalCount} of ${totalCount}`;
+            badge.className = 'badge bg-primary text-white rounded-pill px-2 py-0.5';
+        } else {
+            badge.innerText = `Showing ${visibleCount} of ${totalCount}`;
+            badge.className = visibleCount > 0 ? 'badge bg-success text-white rounded-pill px-2 py-0.5' : 'badge bg-danger text-white rounded-pill px-2 py-0.5';
+        }
+    }
+
+    // Show/hide no matching rows placeholder
+    const noMatchRow = document.getElementById('noMatchRow');
+    if (noMatchRow) {
+        noMatchRow.style.display = (totalCount > 0 && visibleCount === 0) ? '' : 'none';
+    }
+}
+
+// Update match counter when rows change
+function updateMatchCounter() {
+    const searchInput = document.getElementById('clientTableSearch');
+    const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    applyFilter(term);
+}
+
+// Clear table search input and reset filter
+function clearTableSearch() {
+    const searchInput = document.getElementById('clientTableSearch');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+    filterByField('');
 }
 
 // Client-side instant table search filter
@@ -222,6 +301,10 @@ function initFilterHandlers() {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase().trim();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (clearBtn) {
+                clearBtn.style.display = term ? 'inline-block' : 'none';
+            }
             
             // Remove active from predefined chips if typing custom
             document.querySelectorAll('.field-chip').forEach(chip => {
@@ -234,17 +317,7 @@ function initFilterHandlers() {
                 }
             });
 
-            const rows = document.querySelectorAll('.filterable-row');
-            rows.forEach(row => {
-                const text = (
-                    (row.getAttribute('data-role') || '') + ' ' +
-                    (row.getAttribute('data-skills') || '') + ' ' +
-                    (row.getAttribute('data-company') || '') + ' ' +
-                    (row.getAttribute('data-location') || '') + ' ' +
-                    row.innerText
-                ).toLowerCase();
-                row.style.display = (!term || text.includes(term)) ? '' : 'none';
-            });
+            applyFilter(term);
         });
     }
 }
@@ -253,3 +326,4 @@ function initFilterHandlers() {
 function printReport() {
     window.print();
 }
+

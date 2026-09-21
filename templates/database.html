@@ -9,7 +9,7 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1 small">
-                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-decoration-none">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Database Management</li>
                 </ol>
             </nav>
@@ -21,13 +21,13 @@
             <button class="btn btn-primary-naukri btn-sm" data-bs-toggle="modal" data-bs-target="#addJobModal">
                 <i class="fa-solid fa-plus"></i> Add New Job Record
             </button>
-            <button class="btn btn-outline-primary btn-sm seed-btn" onclick="seedSampleData()" title="Re-populate database with realistic IT job vacancies">
+            <button class="btn btn-seed-naukri btn-sm seed-btn" onclick="seedSampleData()" title="Re-populate database with realistic IT job vacancies">
                 <i class="fa-solid fa-database"></i> Re-seed Sample Data
             </button>
             <button class="btn btn-secondary-naukri btn-sm" id="refreshDbBtn" onclick="refreshDatabaseView()">
                 <i class="fa-solid fa-rotate"></i> Refresh
             </button>
-            <button class="btn btn-outline-danger btn-sm" onclick="clearAllJobs()">
+            <button class="btn btn-danger-naukri btn-sm" onclick="clearAllJobs()">
                 <i class="fa-solid fa-trash-can"></i> Clear All Data
             </button>
         </div>
@@ -50,7 +50,7 @@
             <div class="card card-naukri p-3 d-flex flex-row align-items-center justify-content-between">
                 <div>
                     <div class="text-muted small">Unique Companies</div>
-                    <div class="fs-4 fw-bold text-dark">{{ stats.total_companies }}</div>
+                    <div class="fs-4 fw-bold" style="color: inherit;">{{ stats.total_companies }}</div>
                 </div>
                 <div class="kpi-icon-wrap kpi-sky mb-0" style="width: 40px; height: 40px; font-size: 1.1rem;">
                     <i class="fa-solid fa-building"></i>
@@ -73,13 +73,21 @@
     <!-- Instant Search, Field Filter Chips & Table Card -->
     <div class="card card-naukri shadow-sm mb-4">
         <div class="card-header-naukri flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 p-3">
-            <div class="w-100" style="max-width: 450px;">
-                <label class="form-label small text-muted fw-bold mb-1">
-                    <i class="fa-solid fa-magnifying-glass me-1"></i> Filter by Your Field / Role / Skill:
-                </label>
+            <div class="w-100" style="max-width: 500px;">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label small text-muted fw-bold mb-0">
+                        <i class="fa-solid fa-magnifying-glass me-1"></i> Filter by Your Field / Role / Skill:
+                    </label>
+                    <span id="matchCounterBadge" class="badge bg-primary text-white rounded-pill px-2 py-0.5" style="font-size: 0.75rem;">
+                        Showing {{ jobs|length }} of {{ jobs|length }}
+                    </span>
+                </div>
                 <div class="input-group input-group-sm">
                     <span class="input-group-text bg-light"><i class="fa-solid fa-briefcase text-muted"></i></span>
                     <input type="text" class="form-control" id="clientTableSearch" placeholder="Type your field (e.g. Data Scientist, Python, DevOps, Cloud)...">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" id="clearSearchBtn" onclick="clearTableSearch()" title="Clear filter" style="display: none;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
             </div>
             
@@ -102,26 +110,26 @@
         </div>
 
         {% if jobs %}
-        <div class="table-responsive" style="max-height: 650px; overflow-y: auto;">
+        <div class="table-responsive" style="max-height: 580px; overflow-y: auto;">
             <table class="table-naukri" id="databaseTable">
-                <thead style="position: sticky; top: 0; z-index: 10;">
+                <thead>
                     <tr>
-                        <th style="width: 5%;">ID</th>
-                        <th style="width: 25%;">Job Title & Company</th>
-                        <th style="width: 15%;">Location & Mode</th>
+                        <th style="width: 6%;">ID</th>
+                        <th style="width: 25%;">Job Title &amp; Company</th>
+                        <th style="width: 15%;">Location &amp; Mode</th>
                         <th style="width: 14%;">Salary (LPA)</th>
                         <th style="width: 12%;">Experience</th>
-                        <th style="width: 15%;">Skills</th>
-                        <th style="width: 14%; text-align: right;">Actions</th>
+                        <th style="width: 16%;">Skills</th>
+                        <th style="width: 12%; text-align: right;">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="databaseTableBody">
                     {% for job in jobs %}
                     <tr class="filterable-row" id="job-row-{{ job.id }}" data-role="{{ job.job_title }}" data-skills="{{ job.skills }}" data-company="{{ job.company }}" data-location="{{ job.location }}">
                         <td class="text-muted fw-bold">#{{ job.id }}</td>
                         <td>
                             <div class="fw-bold text-primary">{{ job.job_title }}</div>
-                            <div class="small text-secondary">{{ job.company }}</div>
+                            <div class="small text-secondary fw-semibold">{{ job.company }}</div>
                         </td>
                         <td>
                             <div class="small fw-semibold">{{ job.location }}</div>
@@ -149,15 +157,27 @@
                         </td>
                     </tr>
                     {% endfor %}
+                    <!-- Dynamic empty row when search yields 0 matches -->
+                    <tr id="noMatchRow" style="display: none;">
+                        <td colspan="7" class="text-center py-5">
+                            <div class="text-muted mb-2"><i class="fa-solid fa-magnifying-glass fa-2x opacity-50"></i></div>
+                            <h6 class="fw-bold mb-1">No Matching Jobs Found</h6>
+                            <p class="text-muted small mb-3">No database records match your active search query or field filter.</p>
+                            <button class="btn btn-outline-primary btn-sm" onclick="clearTableSearch()">
+                                <i class="fa-solid fa-rotate-left me-1"></i> Clear Filter &amp; Show All
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         {% else %}
         <div class="text-center p-5">
+            <div class="text-muted mb-3"><i class="fa-solid fa-database fa-3x opacity-50"></i></div>
             <h5 class="fw-bold">Database is Empty</h5>
             <p class="text-muted small mb-3">No job listings found in the SQLite database.</p>
-            <button class="btn btn-primary-naukri btn-sm" id="seedSampleBtn" onclick="seedSampleData()">
-                <i class="fa-solid fa-database"></i> Seed Realistic Sample Dataset
+            <button class="btn btn-seed-naukri btn-sm" id="seedSampleBtn" onclick="seedSampleData()">
+                <i class="fa-solid fa-database me-1"></i> Seed Realistic Sample Dataset
             </button>
         </div>
         {% endif %}
@@ -304,5 +324,5 @@
 
 {% block extra_js %}
 <script src="{{ url_for('static', filename='js/datatable.js') }}"></script>
-<script src="{{ url_for('static', filename='js/scraper_ui.js') }}"></script>
 {% endblock %}
+
