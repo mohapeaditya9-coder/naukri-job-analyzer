@@ -1006,22 +1006,22 @@ body.theme-dark .mobile-drawer-status-online,
    Modal Dialog & Input Screen Enhancements
    ========================================================================== */
 .modal {
-  z-index: 1060 !important;
+  z-index: 99999 !important;
 }
 
 .modal-backdrop {
-  z-index: 1055 !important;
-  background-color: rgba(6, 15, 30, 0.75) !important;
-  backdrop-filter: blur(4px) !important;
+  z-index: 99990 !important;
+  background-color: rgba(6, 15, 30, 0.8) !important;
+  backdrop-filter: blur(5px) !important;
 }
 
 .modal-dialog {
-  margin: 1.75rem auto !important;
+  margin: 2.5rem auto !important;
   max-width: 820px !important;
 }
 
 .modal-dialog-scrollable .modal-content {
-  max-height: calc(100vh - 3.5rem) !important;
+  max-height: calc(100vh - 5rem) !important;
 }
 
 .modal-content {

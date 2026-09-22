@@ -28,6 +28,12 @@ database.seed_sample_data()
 # Global lock for background thread
 scrape_thread = None
 
+@app.route('/favicon.ico')
+def favicon():
+    """Returns SVG favicon to eliminate 404 console errors."""
+    svg = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0084ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>'''
+    return Response(svg, mimetype='image/svg+xml')
+
 @app.route('/')
 def index():
     """Home page with hero section, project overview, and quick stats."""
