@@ -118,7 +118,7 @@ async function openEditJobModal(jobId) {
 
         const modalElem = document.getElementById('editJobModal');
         if (modalElem) {
-            const modal = new bootstrap.Modal(modalElem);
+            const modal = bootstrap.Modal.getOrCreateInstance(modalElem);
             modal.show();
         }
     } catch (err) {

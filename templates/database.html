@@ -192,66 +192,64 @@
      ========================================================================== -->
 <div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content shadow-lg">
+        <form class="modal-content shadow-lg" id="addJobForm">
             <div class="modal-header">
                 <h5 class="modal-title" id="addJobModalLabel">
                     <i class="fa-solid fa-plus-circle text-primary me-2"></i>Add New Job Record
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="addJobForm">
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Job Title / Role <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="job_title" required placeholder="e.g. Lead Full Stack Engineer">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Company Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="company" required placeholder="e.g. Google India">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Location</label>
-                            <input type="text" class="form-control" name="location" value="Bengaluru" placeholder="e.g. Bengaluru">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Work Mode</label>
-                            <select class="form-select" name="job_type">
-                                <option value="On-site">On-site</option>
-                                <option value="Hybrid" selected>Hybrid</option>
-                                <option value="Remote">Remote</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Salary Range (e.g. "18-32 Lacs PA")</label>
-                            <input type="text" class="form-control" name="salary" placeholder="e.g. 18-32 Lacs PA">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Experience (e.g. "3-6 Yrs")</label>
-                            <input type="text" class="form-control" name="experience" placeholder="e.g. 3-6 Yrs">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Required Skills (Comma-separated)</label>
-                            <input type="text" class="form-control" name="skills" placeholder="e.g. Python, Django, AWS, Docker, PostgreSQL">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Posted Date</label>
-                            <input type="text" class="form-control" name="posted_date" value="Today">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Job Apply Link</label>
-                            <input type="url" class="form-control" name="job_link" value="https://www.naukri.com">
-                        </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Job Title / Role <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="job_title" required placeholder="e.g. Lead Full Stack Engineer">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Company Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="company" required placeholder="e.g. Google India">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" name="location" value="Bengaluru" placeholder="e.g. Bengaluru">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Work Mode</label>
+                        <select class="form-select" name="job_type">
+                            <option value="On-site">On-site</option>
+                            <option value="Hybrid" selected>Hybrid</option>
+                            <option value="Remote">Remote</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Salary Range (e.g. "18-32 Lacs PA")</label>
+                        <input type="text" class="form-control" name="salary" placeholder="e.g. 18-32 Lacs PA">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Experience (e.g. "3-6 Yrs")</label>
+                        <input type="text" class="form-control" name="experience" placeholder="e.g. 3-6 Yrs">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Required Skills (Comma-separated)</label>
+                        <input type="text" class="form-control" name="skills" placeholder="e.g. Python, Django, AWS, Docker, PostgreSQL">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Posted Date</label>
+                        <input type="text" class="form-control" name="posted_date" value="Today">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Job Apply Link</label>
+                        <input type="url" class="form-control" name="job_link" value="https://www.naukri.com">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary-naukri btn-sm">
-                        <i class="fa-solid fa-floppy-disk me-1"></i> Save Record
-                    </button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary-naukri btn-sm">
+                    <i class="fa-solid fa-floppy-disk me-1"></i> Save Record
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -260,67 +258,65 @@
      ========================================================================== -->
 <div class="modal fade" id="editJobModal" tabindex="-1" aria-labelledby="editJobModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content shadow-lg">
+        <form class="modal-content shadow-lg" id="editJobForm">
+            <input type="hidden" id="editJobId" name="id">
             <div class="modal-header">
                 <h5 class="modal-title" id="editJobModalLabel">
                     <i class="fa-solid fa-pen-to-square text-primary me-2"></i>Edit Job Record
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="editJobForm">
-                <input type="hidden" id="editJobId" name="id">
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Job Title / Role <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="editJobTitle" name="job_title" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Company Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="editCompany" name="company" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Location</label>
-                            <input type="text" class="form-control" id="editLocation" name="location">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Work Mode</label>
-                            <select class="form-select" id="editJobType" name="job_type">
-                                <option value="On-site">On-site</option>
-                                <option value="Hybrid">Hybrid</option>
-                                <option value="Remote">Remote</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Salary Range</label>
-                            <input type="text" class="form-control" id="editSalary" name="salary">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Experience</label>
-                            <input type="text" class="form-control" id="editExperience" name="experience">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Required Skills</label>
-                            <input type="text" class="form-control" id="editSkills" name="skills">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Posted Date</label>
-                            <input type="text" class="form-control" id="editPostedDate" name="posted_date">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Job Apply Link</label>
-                            <input type="url" class="form-control" id="editJobLink" name="job_link">
-                        </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Job Title / Role <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="editJobTitle" name="job_title" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Company Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="editCompany" name="company" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" id="editLocation" name="location">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Work Mode</label>
+                        <select class="form-select" id="editJobType" name="job_type">
+                            <option value="On-site">On-site</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Remote">Remote</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Salary Range</label>
+                        <input type="text" class="form-control" id="editSalary" name="salary">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Experience</label>
+                        <input type="text" class="form-control" id="editExperience" name="experience">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Required Skills</label>
+                        <input type="text" class="form-control" id="editSkills" name="skills">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Posted Date</label>
+                        <input type="text" class="form-control" id="editPostedDate" name="posted_date">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Job Apply Link</label>
+                        <input type="url" class="form-control" id="editJobLink" name="job_link">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary-naukri btn-sm">
-                        <i class="fa-solid fa-check me-1"></i> Update Record
-                    </button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary-naukri btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary-naukri btn-sm">
+                    <i class="fa-solid fa-check me-1"></i> Update Record
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
